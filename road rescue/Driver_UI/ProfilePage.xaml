@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="road_rescue.ProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Profile"
+    BackgroundColor="White">
+
+    <ScrollView>
+        <StackLayout Spacing="0">
+
+            <!-- Header with Hamburger Icon and Profile Picture -->
+            <Grid HeightRequest="250">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#21499F" Offset="0.0"/>
+                        <GradientStop Color="#001f4d" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <!-- Hamburger icon top-right -->
+                <Label Text="☰"
+                       FontSize="28"
+                       TextColor="White"
+                       HorizontalOptions="End"
+                       VerticalOptions="Start"
+                       Margin="0,20,15,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+
+                <!-- Profile Info -->
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <!-- Circular profile image with white stroke -->
+                    <Border
+                        WidthRequest="100"
+                        HeightRequest="100"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="50"/>
+                        </Border.StrokeShape>
+                        <Image Source="derek.jpg"
+                               x:Name="ProfileImage"
+                               Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                            </Image.Clip>
+                        </Image>
+                    </Border>
+
+                    <Label Text="Derek Zoolander"
+                           x:Name="FullNameLabel"
+                           TextColor="White"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0"/>
+
+                    <Label Text="looksmaxxing@gmail.com"
+                            x:Name="EmailLabel"
+                           TextColor="White"
+                           FontSize="14"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Action Section -->
+            <StackLayout Padding="5" Spacing="10">
+
+                <Label Text="Account Settings"
+                       FontAttributes="Bold"
+                       FontSize="15"
+                       TextColor="Black"
+                       Padding="10,10,10,5" />
+
+                <BoxView HeightRequest="1"
+                         BackgroundColor="#cccccc"
+                         HorizontalOptions="Fill" />
+
+                <Label Text="Change Profile Picture"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnChangeProfilePictureTapped"/>
+                    </Label.GestureRecognizers>
+
+
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+
+                    
+                </Label>
+
+                <Label Text="Change Password"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Edit Contact Info"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Notification Preferences"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Vehicle Details"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.MessagesPage"
+             Title="Messages"
+             BackgroundColor="#edf2fb">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Title with Hamburger Icon -->
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Messages"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#21499F"
+                       VerticalOptions="Center"
+                       Grid.Column="0" />
+
+                <Label Text="☰"
+                       FontSize="30"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       Margin="0,0,0,4"
+                       Grid.Column="1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <!-- Messages Collection -->
+            <CollectionView x:Name="MessagesList" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#e0e0e0"
+                                StrokeThickness="1"
+                                BackgroundColor="White"
+                                StrokeShape="RoundRectangle 15"
+                                Padding="10">
+
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Profile Image -->
+                                <Image Source="derek.jpg"
+                                       WidthRequest="50"
+                                       HeightRequest="50"
+                                       Aspect="AspectFill">
+                                    <Image.Clip>
+                                        <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25"/>
+                                    </Image.Clip>
+                                </Image>
+
+                                <!-- Message Content -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding SenderName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           TextColor="Black" />
+                                    <Label Text="{Binding MessagePreview}"
+                                           FontSize="14"
+                                           TextColor="Gray"
+                                           LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding TimeSent}"
+                                           FontSize="12"
+                                           TextColor="LightGray"
+                                           HorizontalOptions="End"/>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <!-- Tap Gesture for Message Item -->
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TapCommand}" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

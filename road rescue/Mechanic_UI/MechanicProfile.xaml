@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="road_rescue.MechanicProfile"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Profile"
+    Shell.TabBarIsVisible="False"
+    BackgroundColor="White"
+    Shell.FlyoutBehavior="Disabled"
+    >
+
+    <ScrollView>
+        <StackLayout Spacing="0">
+
+            <!-- Header with Back Button and Profile Picture -->
+            <Grid HeightRequest="250">
+                <Grid.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#21499F" Offset="0.0"/>
+                        <GradientStop Color="#001f4d" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+
+                <!-- Back button top-left -->
+                <ImageButton
+                    Source="arrowleftsmall.png"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    HeightRequest="20"
+                    WidthRequest="20"
+                    Margin="10"
+                    Clicked="OnBackButtonClicked" />
+
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+                    <!-- Circular profile with Border StrokeShape -->
+                    <Border
+                        WidthRequest="100"
+                        HeightRequest="100"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="50"/>
+                        </Border.StrokeShape>
+                        <!-- Clip Image to circle -->
+                        <Image Source="stayvepic.jpg" Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                            </Image.Clip>
+                        </Image>
+                    </Border>
+
+                    <Label Text="Stayve Alreach Fedillaga"
+                           TextColor="White"
+                           FontSize="22"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           Margin="0,10,0,0"/>
+
+                    <Label Text="programmerstayve@gmail.com"
+                           TextColor="White"
+                           FontSize="14"
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Action Labels -->
+            <StackLayout Padding="5" Spacing="10">
+
+                <!-- Section Header -->
+                <Label Text="Account Settings"
+                       FontAttributes="Bold"
+                       FontSize="15"
+                       TextColor="Black"
+                       Padding="10,10,10,5"
+                       />
+
+                <!-- Divider line -->
+                <BoxView HeightRequest="1"
+                         BackgroundColor="#cccccc"
+                         HorizontalOptions="Fill" />
+
+                <!-- Action Items -->
+                <Label Text="Change Profile Picture"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Change Password"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Edit Contact Info"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Notification Preferences"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+                <Label Text="Vehicle Details"
+                       TextColor="Black"
+                       FontSize="14"
+                       Padding="20,10"
+                       BackgroundColor="#F0F0F0"
+                       HorizontalOptions="Fill"
+                       HorizontalTextAlignment="Start">
+                    <Label.Shadow>
+                        <Shadow Brush="Black" Offset="1,1" Opacity="0.1" Radius="2"/>
+                    </Label.Shadow>
+                </Label>
+
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

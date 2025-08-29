@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.MainPage"
+             xmlns:vm="clr-namespace:road_rescue.ViewModels"
+            Shell.NavBarIsVisible="False"
+            Shell.FlyoutBehavior="Disabled"
+            Shell.TabBarIsVisible="False"
+             >
+
+    <Grid RowDefinitions="*, Auto"
+          Padding="1">
+        <CarouselView ItemsSource="{Binding OnboardingSteps}"
+                      Grid.Row="0"
+                      IndicatorView="onboardingIndicator"
+                      PositionChanged="CarouselView_PositionChanged"
+                      IsSwipeEnabled="{Binding IsSwipeEnabled}"
+                      Loop="False"
+                      >
+            <!-- Disable looping -->
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="vm:OnboardingModel">
+                    <Grid Padding="0,100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Image Grid.Row="0"
+                               Source="{Binding Image}"
+                               Aspect="AspectFit" />
+
+                        <Label Grid.Row="1"
+                               Text="{Binding Heading}"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center" />
+
+                        <Label Grid.Row="2"
+                               Text="{Binding Description}"
+                               FontSize="15"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               Padding="10"
+                               HorizontalTextAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="20">
+            <Label Text="Skip"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   TextColor="Gray"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   IsVisible="{Binding IsNotLastStep}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button IsVisible="{Binding IsLastStep}"
+                    Text="Get Started"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#3070f6"
+                    FontSize="20"
+                    Pressed="Button_Pressed" />
+
+            <IndicatorView x:Name="onboardingIndicator"
+                           IndicatorsShape="Circle"
+                           IndicatorSize="8"
+                           HorizontalOptions="Center"
+                           VerticalOptions="End"
+                           SelectedIndicatorColor="Black"
+                           IndicatorColor="LightGray" />
+        </VerticalStackLayout>
+    </Grid>
+
+
+</ContentPage>

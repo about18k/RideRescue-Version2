@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.Mechanic_UI.LocationPage"
+             BackgroundColor="Black"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+
+             >
+
+    <Grid>
+        <!-- The Location Image filling the screen -->
+        <Image Source="location.png"
+               Aspect="AspectFill"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
+
+        <!-- Top-left Back Arrow Button, overlayed -->
+        <Grid Padding="20"
+              VerticalOptions="Start"
+              HorizontalOptions="Start"
+              RowDefinitions="Auto"
+              ColumnDefinitions="Auto,*"
+              InputTransparent="True">
+            <ImageButton Source="back_arrow.png"
+                         HeightRequest="36"
+                         WidthRequest="36"
+                         BackgroundColor="Transparent"
+                         CornerRadius="0"
+                         Margin="0"
+                         Padding="0"
+                         VerticalOptions="Start"
+                         HorizontalOptions="Start"
+                         Clicked="OnBackButtonClicked"
+                         InputTransparent="False"/>
+        </Grid>
+    </Grid>
+</ContentPage>

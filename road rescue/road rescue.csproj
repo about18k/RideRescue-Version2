@@ -1,0 +1,94 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>road_rescue</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>Road Rescue</ApplicationTitle>
+
+		<!-- App Identifier (unique, reverse-DNS style, lowercase, no spaces) -->
+		<ApplicationId>com.kimytac.roadrescue</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<WindowsPackageType>None</WindowsPackageType>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<!-- ANDROID-SPECIFIC SETTINGS -->
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<!-- force APK instead of AAB -->
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<!-- bump this number when signing or deployment issues happen -->
+		<AndroidVersionCode>10000</AndroidVersionCode>
+		<AndroidVersionName>1.0.0</AndroidVersionName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="white" BaseSize="128,128" />
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.4" />
+		<PackageReference Include="Supabase" Version="1.1.1" />
+		<PackageReference Include="Supabase.Postgrest" Version="4.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="CertificatePreviewPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="ChatPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="driver_steplogin.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Driver_UI\fireStation.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Driver_UI\gasStation.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Driver_UI\MDRRMO.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Driver_UI\policeStation.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Driver_UI\repairShop.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="EmergencyRequestPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="HospitalPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="landingpage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="logInPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="LogoutPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="MakePaymentPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="MapPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="MechanicInfoPopup.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="MessagesPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="NotificationPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="OtherServicesPopup.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="PaymentsPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="ProfilePage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="request_status.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="ReviewsPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="roleSelectionPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Settings.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="signUpPage.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="SOS.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	  <MauiXaml Update="Vulcanizing.xaml"><Generator>MSBuild:Compile</Generator></MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Maui.Controls" Version="9.0.60" />
+	</ItemGroup>
+
+</Project>

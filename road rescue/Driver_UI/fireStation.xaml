@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.Driver_UI.fireStation"
+             Shell.NavBarIsVisible="False"
+             >
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <!-- Fixed Header (Search Bar) -->
+        <VerticalStackLayout Padding="10" Spacing="10" BackgroundColor="White" Grid.Row="0">
+            <Label Text="Nearest Fire Station"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10" />
+            <Border Stroke="Gray" StrokeThickness="1" Padding="0"
+                    StrokeShape="RoundRectangle 100">
+                <SearchBar Placeholder="Find services near you.." 
+                           BackgroundColor="Transparent"
+                           VerticalOptions="Center"
+                           HeightRequest="40"/>
+            </Border>
+        </VerticalStackLayout>
+
+        <!-- Horizontal Scrollable Filter Buttons (Positioned below the search bar) -->
+        <ScrollView Orientation="Horizontal" Grid.Row="1" Margin="0,10">
+            <HorizontalStackLayout Spacing="6" Padding="5,0">
+                <Button Text="🛠 Repair" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="🛞 Vulcanize" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="⛽ Gas" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="🚑 Hospital" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="🚨 Rescue" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="👮 Police" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+                <Button Text="🔥 Fire" Clicked="OnChipClicked"
+                        FontSize="12" Padding="10,5"
+                        BackgroundColor="#f2f2f2" TextColor="Black"
+                        BorderColor="Gray" BorderWidth="1"
+                        CornerRadius="15" />
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Scrollable Shop List (below buttons) -->
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Padding="10" Spacing="10">
+
+                <!-- Shop Card 1 -->
+                <Border Margin="10" Padding="15" StrokeThickness="1" Stroke="#E0E0E0" BackgroundColor="#ffffff">
+                    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+
+                        <Image Grid.RowSpan="2"
+                               Source="fire_station.png"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <Label Grid.Column="1"
+                               Text="Bossing Vulcanizing Shop"
+                               FontSize="18"
+                               VerticalOptions="Start"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"
+                               Margin="0,0,0,5"/>
+
+                        <StackLayout Grid.Row="2" Grid.Column="0"
+                                     Orientation="Vertical"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Spacing="4">
+
+                            <Label Text="123 Main St, Cityville"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="Contact: (123) 456-7890"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            
+                        </StackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Spacing="10" Margin="0,15,0,0" WidthRequest="100">
+                            <Button Text="Location" Clicked="OnMoreInfoClicked"
+                                    BackgroundColor="#21499F" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                            <Button Text="Message" Clicked="OnMessageClicked"
+                                    BackgroundColor="#34A853" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Shop Card 2 -->
+                <Border Margin="10" Padding="15" StrokeThickness="1" Stroke="#E0E0E0" BackgroundColor="#ffffff">
+                    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+
+                        <Image Grid.RowSpan="2"
+                               Source="fire_station.png"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <Label Grid.Column="1"
+                               Text="Bossing Vulcanizing Shop"
+                               FontSize="18"
+                               VerticalOptions="Start"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"
+                               Margin="0,0,0,5"/>
+
+                        <StackLayout Grid.Row="2" Grid.Column="0"
+                                     Orientation="Vertical"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Spacing="4">
+
+                            <Label Text="456 Elm St, Townsville"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="Contact: (987) 654-3210"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                           
+                        </StackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Spacing="10" Margin="0,15,0,0" WidthRequest="100">
+                            <Button Text="Location" Clicked="OnMoreInfoClicked"
+                                    BackgroundColor="#21499F" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                            <Button Text="Message" Clicked="OnMessageClicked"
+                                    BackgroundColor="#34A853" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Shop Card 3 -->
+                <Border Margin="10" Padding="15" StrokeThickness="1" Stroke="#E0E0E0" BackgroundColor="#ffffff">
+                    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+
+                        <Image Grid.RowSpan="2"
+                               Source="fire_station.png"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <Label Grid.Column="1"
+                               Text="Bossing Vulcanizing Shop"
+                               FontSize="18"
+                               VerticalOptions="Start"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"
+                               Margin="0,0,0,5"/>
+
+                        <StackLayout Grid.Row="2" Grid.Column="0"
+                                     Orientation="Vertical"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Spacing="4">
+
+                            <Label Text="789 Oak Ave, Villagetown"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="Contact: (555) 123-4567"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            
+                        </StackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Spacing="10" Margin="0,15,0,0" WidthRequest="100">
+                            <Button Text="Location" Clicked="OnMoreInfoClicked"
+                                    BackgroundColor="#21499F" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                            <Button Text="Message" Clicked="OnMessageClicked"
+                                    BackgroundColor="#34A853" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Shop Card 4 -->
+                <Border Margin="10" Padding="15" StrokeThickness="1" Stroke="#E0E0E0" BackgroundColor="#ffffff">
+                    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+
+                        <Image Grid.RowSpan="2"
+                               Source="fire_station.png"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <Label Grid.Column="1"
+                               Text="Bossing Vulcanizing Shop"
+                               FontSize="18"
+                               VerticalOptions="Start"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"
+                               Margin="0,0,0,5"/>
+
+                        <StackLayout Grid.Row="2" Grid.Column="0"
+                                     Orientation="Vertical"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Spacing="4">
+
+                            <Label Text="101 Pine Rd, Hamletville"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="Contact: (999) 888-7777"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                           
+                        </StackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Spacing="10" Margin="0,15,0,0" WidthRequest="100">
+                            <Button Text="Location" Clicked="OnMoreInfoClicked"
+                                    BackgroundColor="#21499F" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                            <Button Text="Message" Clicked="OnMessageClicked"
+                                    BackgroundColor="#34A853" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Shop Card 5 -->
+                <Border Margin="10" Padding="15" StrokeThickness="1" Stroke="#E0E0E0" BackgroundColor="#ffffff">
+                    <Grid RowDefinitions="Auto,*,Auto" ColumnDefinitions="Auto,*">
+
+                        <Image Grid.RowSpan="2"
+                               Source="fire_station.png"
+                               WidthRequest="60"
+                               HeightRequest="60"
+                               Aspect="AspectFill"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Start"
+                               Margin="0,0,10,0">
+                            <Image.Clip>
+                                <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                            </Image.Clip>
+                        </Image>
+
+                        <Label Grid.Column="1"
+                               Text="Bossing Vulcanizing Shop"
+                               FontSize="18"
+                               VerticalOptions="Start"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"
+                               Margin="0,0,0,5"/>
+
+                        <StackLayout Grid.Row="2" Grid.Column="0"
+                                     Orientation="Vertical"
+                                     VerticalOptions="End"
+                                     HorizontalOptions="Start"
+                                     Spacing="4">
+
+                            <Label Text="202 Maple St, Countryside"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            <Label Text="Contact: (444) 555-6666"
+                                   FontSize="14"
+                                   TextColor="Gray"
+                                   VerticalOptions="Center" />
+
+                            
+                        </StackLayout>
+
+                        <VerticalStackLayout Grid.Row="2" Grid.Column="1" HorizontalOptions="End" Spacing="10" Margin="0,15,0,0" WidthRequest="100">
+                            <Button Text="Location" Clicked="OnMoreInfoClicked"
+                                    BackgroundColor="#21499F" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                            <Button Text="Message" Clicked="OnMessageClicked"
+                                    BackgroundColor="#34A853" TextColor="White"
+                                    CornerRadius="20" HeightRequest="35" WidthRequest="100" Padding="0"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

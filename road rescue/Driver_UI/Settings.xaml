@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.Settings"
+             Title="Settings">
+    <VerticalStackLayout>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"   />
+                <ColumnDefinition Width="Auto"   />
+                <ColumnDefinition Width="*"   />
+            </Grid.ColumnDefinitions>
+
+
+
+        </Grid>
+
+        <Label 
+        Text="General Settings"
+        VerticalOptions="Center" 
+        Grid.Row="1"
+        Grid.Column="3"
+        TextColor="WhiteSmoke"
+        FontAttributes="Bold"
+        FontSize="Subtitle"
+        Padding="5"
+        BackgroundColor="DarkGray"
+         />
+
+        <Label
+        Text="Select Language"
+        FontSize="11"
+        Padding="5"
+        
+        />
+
+        <Picker  
+        Grid.Row="3"
+        Grid.Column="3"
+        Title="Preffered Langauge"
+        MaximumWidthRequest="300"
+        HorizontalOptions="Start"
+        >
+            <Picker.Items
+            >
+                <x:String>Tagalog</x:String>
+                <x:String>Bisaya</x:String>
+                <x:String>English</x:String>
+                <x:String>Conyo</x:String>
+            </Picker.Items>
+        </Picker>
+
+    </VerticalStackLayout>
+</ContentPage>

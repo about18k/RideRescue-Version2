@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          x:Class="road_rescue.ChatPage"
+          Title="Chat"
+          BackgroundColor="#edf2fb"
+          Shell.TabBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="10" RowSpacing="0">
+
+        <!-- Header -->
+        <Border Grid.Row="0" 
+                BackgroundColor="White"
+                Padding="15,10"
+                Stroke="Transparent">
+            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                <!-- Back Button -->
+                <Button ImageSource="arrowleftsmall.png" 
+                        Clicked="OnBackClicked"
+                        BackgroundColor="Transparent"
+                        WidthRequest="15"
+                        HeightRequest="15"
+                        Padding="0"
+                        Margin="0,0,5,0"/>
+
+                <Image Source="derek.jpg" 
+                       WidthRequest="45" 
+                       HeightRequest="45" 
+                       Aspect="AspectFill">
+                    <Image.Clip>
+                        <EllipseGeometry Center="22.5,22.5" RadiusX="22.5" RadiusY="22.5"/>
+                    </Image.Clip>
+                </Image>
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label Text="Tire Pro Service" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="#3070f6" />
+                    <Label Text="Active now" 
+                           FontSize="12" 
+                           TextColor="#6c757d"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- Messages -->
+        <CollectionView x:Name="ChatMessages" 
+                       Grid.Row="1" 
+                       ItemsSource="{Binding Messages}"
+                       VerticalScrollBarVisibility="Never"
+                       SelectionMode="None"
+                       Margin="0,5">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Stroke="#e0e0e0" 
+                                StrokeThickness="1"
+                                BackgroundColor="{Binding IsSentByUser, Converter={StaticResource BoolToColorConverter}}"
+                                StrokeShape="RoundRectangle 15"
+                                HorizontalOptions="{Binding IsSentByUser, Converter={StaticResource MessageAlignmentConverter}}"
+                                Padding="12">
+                            <Label Text="{Binding Text}"
+                                   TextColor="Black"
+                                   FontSize="14"
+                                   LineBreakMode="WordWrap"/>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Input Bar -->
+        <Grid Grid.Row="2" Margin="0,5,0,0">
+            <Border Stroke="#d1d5db" 
+                    StrokeThickness="1" 
+                    BackgroundColor="White"
+                    StrokeShape="RoundRectangle 25"
+                    Padding="0"
+                    
+                    >
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="0">
+                    <!-- Image Attachment Button -->
+                    <Button ImageSource="imageicon.png"
+                            Clicked="OnAttachmentClicked"
+                            BackgroundColor="Transparent"
+                            WidthRequest="15"
+                            HeightRequest="15"
+                            Margin="10,0"
+                            Padding="0"
+                            Grid.Column="0"/>
+
+                    <Entry x:Name="MessageEntry" 
+                           Placeholder="Type a message..." 
+                           BackgroundColor="Transparent"
+                           Margin="15,0"
+                           ClearButtonVisibility="WhileEditing"
+                           Keyboard="Chat"
+                           Grid.Column="1"/>
+
+                    <Button Text="Send" 
+                            BackgroundColor="#21499F" 
+                            TextColor="White" 
+                            Clicked="OnSendClicked"
+                            Padding="20,12"
+                            CornerRadius="25"
+                            FontAttributes="Bold"
+                            Grid.Column="2"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,123 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.EmergencyRequestPage"
+             BackgroundColor="#edf2fb"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Padding="0">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar: Back Button + Title -->
+        <HorizontalStackLayout Grid.Row="0" Padding="16,20,16,10" Spacing="12" VerticalOptions="Center">
+            <!-- Back Button -->
+            <ImageButton Source="arrowleftsmall.png"
+                         BackgroundColor="Transparent"
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         Clicked="OnBackButtonClicked"
+                         HorizontalOptions="Start"
+                         VerticalOptions="Center" />
+
+            <!-- Title -->
+            <Label Text="Emergency Request"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   TextColor="#1A1A1A" />
+        </HorizontalStackLayout>
+
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1" Padding="24,0,24,24">
+            <VerticalStackLayout Spacing="24">
+
+                <!-- Vehicle Type Picker -->
+                <VerticalStackLayout>
+                    <Label Text="Vehicle Type"
+                           FontSize="16"
+                           Margin="0,90,0,18"
+                           FontAttributes="Bold"
+                           TextColor="#555" />
+                    <Frame BackgroundColor="#F5F5F5"
+                           CornerRadius="12"
+                           Padding="0"
+                           HasShadow="False">
+                        <Picker x:Name="VehicleTypePicker"
+                                Title="Select vehicle"
+                                TextColor="#000"
+                                FontSize="16">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Car</x:String>
+                                    <x:String>Motorcycle</x:String>
+                                    <x:String>Truck</x:String>
+                                    <x:String>Van</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <!-- Cause of Breakdown Entry -->
+                <VerticalStackLayout>
+                    <Label Text="Cause of Breakdown"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           Margin="0,0,0,18"
+                           TextColor="#555" />
+                    <Editor x:Name="BreakdownCauseEditor"
+                            Placeholder="Describe the issue..."
+                            AutoSize="TextChanges"
+                            FontSize="16"
+                            BackgroundColor="#F5F5F5"
+                            TextColor="#000"
+                            HeightRequest="120"
+                            Margin="0"/>
+                </VerticalStackLayout>
+
+                <!-- Post Button -->
+                <HorizontalStackLayout Spacing="12" VerticalOptions="Center">
+                    <ImageButton 
+            Source="imageicon.png"
+            x:Name="landmarkk"
+            CornerRadius="24"
+            HeightRequest="30"
+            WidthRequest="30"
+            Clicked="landmarkk_Clicked" />
+
+                    <Label x:Name="fileNameLabel"
+               Text="No file selected"
+               FontSize="14"
+               VerticalOptions="Center"
+               LineBreakMode="TailTruncation"
+               TextColor="#333"
+               WidthRequest="200" />
+                </HorizontalStackLayout>
+
+                <!-- 🖼️ Image Preview below -->
+                <Image x:Name="selectedImage"
+           HeightRequest="120"
+           WidthRequest="120"
+           Aspect="AspectFill"
+           BackgroundColor="#eee"
+           HorizontalOptions="Start" />
+
+
+                <Button
+                    Text="Post"
+                    BackgroundColor="#3070f6"
+                    x:Name="postbutton"
+                    Clicked="postbutton_Clicked"
+                    />
+
+
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

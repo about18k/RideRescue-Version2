@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.SecondPage"
+             Shell.TabBarIsVisible="False"
+             Title="Road Rescue"
+             Shell.FlyoutBehavior="Disabled"
+             >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#edf2fb" Offset="0.0" />
+            <GradientStop Color="#dbe7f5" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid RowSpacing="20" Padding="20,40,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header with Bottom Border -->
+        <Grid Grid.Row="0" ColumnSpacing="10" Padding="0,0,0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Road Rescue"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   FontFamily="PoppinsBold"
+                   VerticalOptions="Center"
+                   TextColor="#1F1F1F" />
+
+            <Frame BackgroundColor="White"
+                   CornerRadius="35"
+                   Padding="2"
+                   HasShadow="True"
+                   WidthRequest="56"
+                   HeightRequest="56"
+                   VerticalOptions="Center"
+                   HorizontalOptions="End"
+                   BorderColor="#e0e0e0">
+                <Image Source="icon_user.png"
+                       WidthRequest="25"
+                       HeightRequest="25"
+                       Aspect="AspectFill">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnUserIconTapped"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Frame>
+
+            <!-- Bottom border -->
+            <BoxView Grid.Row="1" Grid.ColumnSpan="2"
+                     HeightRequest="1"
+                     BackgroundColor="#ccc"
+                     VerticalOptions="End"/>
+        </Grid>
+
+        <!-- Services Card -->
+        <Frame Grid.Row="1"
+       CornerRadius="30"
+       BackgroundColor="White"
+       Padding="20,15"
+       HasShadow="True"
+       HorizontalOptions="FillAndExpand"
+       BorderColor="#E0E0E0"
+       HeightRequest="260">
+            <!-- Adjust this if it's still too tall -->
+
+            <Grid ColumnSpacing="20" RowSpacing="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Request -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="4" HorizontalOptions="Center">
+                    <Image Source="icon_request.png" HeightRequest="44" WidthRequest="44">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRequestTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Request" FontSize="13" TextColor="#333" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Tracking -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="4" HorizontalOptions="Center">
+                    <Image Source="icon_tracking.png" HeightRequest="44" WidthRequest="44">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnTrackingTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Tracking" FontSize="13" TextColor="#333" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Messages -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="4" HorizontalOptions="Center">
+                    <Image Source="icon_message.png" HeightRequest="44" WidthRequest="44">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnMessagesTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Messages" FontSize="13" TextColor="#333" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Payments -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="4" HorizontalOptions="Center">
+                    <Image Source="icon_payments.png" HeightRequest="44" WidthRequest="44">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPaymentsTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Payments" FontSize="13" TextColor="#333" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+
+                <!-- Complete -->
+                <VerticalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Spacing="4" HorizontalOptions="Center">
+                    <Image Source="icon_complete.png" HeightRequest="44" WidthRequest="44">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCompleteTapped"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Complete" FontSize="13" TextColor="#333" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+        
+
+    </Grid>
+</ContentPage>

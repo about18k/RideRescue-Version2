@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.PaymentsPage"
+             Title="Payments"
+             BackgroundColor="#edf2fb">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Page Title -->
+            <Label Text="Payments"
+                   FontSize="28"
+                   FontAttributes="Bold"
+                   TextColor="#21499F"
+                   Margin="0,0,0,37" />
+
+            <!-- Transaction List Title -->
+            <Label Text="Transaction List"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Black" />
+
+            <!-- Transaction List -->
+            <CollectionView x:Name="TransactionList" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame HasShadow="True" BorderColor="#b0bec5" BackgroundColor="White" CornerRadius="10" Padding="10" Margin="0,5">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Transaction Image -->
+                                <Image Source="{Binding Image}" WidthRequest="40" HeightRequest="40" Clip="Ellipse" />
+
+                                <!-- Transaction Details -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding Description}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                    <Label Text="{Binding DateTime}" FontSize="12" TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <!-- Transaction Amount -->
+                                <Label Grid.Column="2"
+                                       Text="{Binding Amount}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#009688"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTransactionTapped"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Payment History Title -->
+            <Label Text="Payment History"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Margin="0,10,0,0" />
+
+            <!-- Payment History List -->
+            <CollectionView x:Name="PaymentList" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#e0e0e0" BackgroundColor="White" StrokeShape="RoundRectangle 10" Padding="10" Margin="0,5">
+                            <Grid ColumnSpacing="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Provider Image -->
+                                <Image Source="{Binding Image}" WidthRequest="40" HeightRequest="40" Clip="Ellipse" />
+
+                                <!-- Payment Details -->
+                                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                    <Label Text="{Binding Provider}" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                    <Label Text="{Binding DateTime}" FontSize="12" TextColor="Gray"/>
+                                </VerticalStackLayout>
+
+                                <!-- Amount -->
+                                <Label Grid.Column="2"
+                                       Text="{Binding Amount}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="#3070f6"
+                                       VerticalOptions="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

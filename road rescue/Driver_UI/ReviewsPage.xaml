@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.ReviewsPage"
+             Title="Pending Reviews"
+             BackgroundColor="#f4f6f8">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <!-- Header with Title and Hamburger -->
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Pending Reviews"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="#21499F"
+                   VerticalOptions="Center"
+                   Grid.Column="0" />
+
+            <Label Text="☰"
+                   FontSize="30"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Margin="0,0,0,4"
+                   Grid.Column="1">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- Space below header -->
+
+        <!-- Pending Reviews List -->
+        <CollectionView x:Name="PendingReviewsList" SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="15" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White" CornerRadius="15" Padding="15" HasShadow="True">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="{Binding ProviderName}" FontAttributes="Bold" FontSize="18" />
+                            <Label Text="{Binding ServiceRequested}" FontSize="14" TextColor="Gray" />
+                            <Label Text="{Binding Location}" FontSize="14" TextColor="Gray" />
+                            <Label Text="{Binding DateRequested, StringFormat='Requested: {0:MMM dd, yyyy}'}"
+                                   FontSize="12" TextColor="DarkGray" />
+                            <Label Text="{Binding DateCompleted, StringFormat='Completed: {0:MMM dd, yyyy}'}"
+                                   FontSize="12" TextColor="DarkGray" />
+
+                            <Button Text="Review Now"
+                                    BackgroundColor="#21499F"
+                                    TextColor="White"
+                                    CornerRadius="10"
+                                    Command="{Binding ReviewCommand}" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- Optional and only needed if you query other apps; see note below -->
+  <queries>
+    <!-- Browsers (optional; lets you query who can VIEW https links) -->
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="https" />
+    </intent>
+
+    <!-- Custom Tabs support (optional) -->
+    <intent>
+      <action android:name="android.support.customtabs.action.CustomTabsService" />
+    </intent>
+  </queries>
+
+  <application
+      android:allowBackup="true"
+      android:icon="@mipmap/appicon"
+      android:roundIcon="@mipmap/appicon_round"
+      android:supportsRtl="true">
+
+    <!-- Put your intent-filter inside the activity that should receive the link -->
+    <activity
+        android:name=".MainActivity"
+        android:exported="true">
+
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="roadrescue.staging"
+              android:host="email-callback" />
+      </intent-filter>
+    </activity>
+
+  </application>
+
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+</manifest>

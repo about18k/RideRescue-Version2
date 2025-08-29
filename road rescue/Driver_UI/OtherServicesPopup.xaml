@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="road_rescue.OtherServicesPopup"
+    >
+
+    <Frame 
+        BackgroundColor="White"
+        HasShadow="True"
+        Padding="25"
+        HorizontalOptions="Center"
+        VerticalOptions="Center"
+        WidthRequest="300"
+        Margin="0">
+
+        <VerticalStackLayout Spacing="20">
+            <!-- Title -->
+            <Label 
+                Text="Other Services" 
+                FontAttributes="Bold" 
+                FontSize="20" 
+                HorizontalOptions="Center" 
+                TextColor="Black"/>
+
+            <!-- Grid of Services -->
+            <Grid 
+                ColumnDefinitions="*,*" 
+                RowDefinitions="Auto,Auto" 
+                ColumnSpacing="20" 
+                RowSpacing="20">
+
+                <!-- Item 1: Hospital -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                    <Image Source="hospital.png" HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHospitalTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Hospital" FontSize="14" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnHospitalTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+
+                <!-- Item 2: Rescue/MDRRMO -->
+                <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                    <Image Source="ambulance.png" HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRescueTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Rescue/MDRRMO" FontSize="14" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRescueTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+
+                <!-- Item 3: Police Station -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                    <Image Source="police_station.png" HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPoliceTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Police Station" FontSize="14" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnPoliceTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+
+                <!-- Item 4: Fire Station -->
+                <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                    <Image Source="fire_station.png" HeightRequest="50">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFireTapped" NumberOfTapsRequired="1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label Text="Fire Station" FontSize="14" HorizontalTextAlignment="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFireTapped" NumberOfTapsRequired="1" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+
+            </Grid>
+
+            <!-- Close Button -->
+            <Button 
+                Text="Close" 
+                Clicked="OnCloseClicked" 
+                BackgroundColor="#21499F" 
+                TextColor="White" 
+                CornerRadius="12"
+                WidthRequest="100"
+                HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

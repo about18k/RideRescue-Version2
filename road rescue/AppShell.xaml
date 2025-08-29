@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="road_rescue.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:road_rescue"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.NavBarIsVisible="True"
+    Title="road_rescue"
+    FlyoutBackgroundColor="#edf2fb"
+    ForegroundColor="Black"
+    TitleColor="Black">
+
+    <!-- Header -->
+    <Shell.FlyoutHeader>
+        <Grid Padding="10" BackgroundColor="#21499F">
+            <Image Source="logo2.png"
+                   WidthRequest="100" HeightRequest="100"
+                   HorizontalOptions="Center" />
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- REAL flyout entries (one per FlyoutItem) -->
+    <FlyoutItem Title="Home" Icon="home.png" Route="landing">
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate local:landingpage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Profile" Icon="pfp.png" Route="profile">
+        <ShellContent Title="Profile"
+                      ContentTemplate="{DataTemplate local:ProfilePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Messages" Icon="messages.png" Route="messages">
+        <ShellContent Title="Messages"
+                      ContentTemplate="{DataTemplate local:MessagesPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Reviews" Icon="ratings.png" Route="reviews">
+        <ShellContent Title="Reviews"
+                      ContentTemplate="{DataTemplate local:ReviewsPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Notifications" Icon="notification.png" Route="notifications">
+        <ShellContent Title="Notifications"
+                      ContentTemplate="{DataTemplate local:NotificationPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Request Status" Icon="feed.png" Route="request_status">
+        <ShellContent Title="Request Status"
+                      ContentTemplate="{DataTemplate local:request_status}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Payments" Icon="icon_payments.png" Route="payments">
+        <ShellContent Title="Payments"
+                      ContentTemplate="{DataTemplate local:MakePaymentPage}" />
+    </FlyoutItem>
+
+    <!-- Footer -->
+    <Shell.FlyoutFooter>
+        <Grid Padding="12">
+            <Button Text="Logout"
+                    TextColor="Black"
+                    FontAttributes="Bold"
+                    Clicked="Logout_Clicked" />
+        </Grid>
+    </Shell.FlyoutFooter>
+</Shell>

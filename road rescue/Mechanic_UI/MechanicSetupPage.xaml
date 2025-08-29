@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.MechanicSetupPage"
+             Title="Mechanic Setup Page"
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundColor="#edf2fb"
+             Shell.TabBarIsVisible="False"
+             Padding="20">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="25">
+
+            <!-- Title Section -->
+            <Frame Padding="20" BackgroundColor="#21499F" CornerRadius="20" HasShadow="True">
+                <Label Text="Mechanic Setup"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       TextColor="White"/>
+            </Frame>
+
+            <!-- Personal Info Section -->
+            <Frame BackgroundColor="White" CornerRadius="20" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="15">
+                    <Entry x:Name="NameEntry" Placeholder="Enter full name" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="UsernameEntry" Placeholder="Enter email" Keyboard="Email" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="PasswordEntry" Placeholder="Enter password" IsPassword="True" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirm password" IsPassword="True" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="ContactEntry" Text="+63 " Keyboard="Telephone" MaxLength="14" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="ShopNameEntry" Placeholder="Enter shop name" TextChanged="ValidateInputs" FontSize="16"/>
+                    <Entry x:Name="ShopLocationEntry" Placeholder="Enter shop location" TextChanged="ValidateInputs" FontSize="16"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Operating Days -->
+            <Frame BackgroundColor="White" CornerRadius="20" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Operating Days:" FontSize="16" TextColor="Black"/>
+                    <HorizontalStackLayout Spacing="15">
+                        <Picker x:Name="StartDayPicker" Title="Start Day" FontSize="16" WidthRequest="150">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Monday</x:String>
+                                    <x:String>Tuesday</x:String>
+                                    <x:String>Wednesday</x:String>
+                                    <x:String>Thursday</x:String>
+                                    <x:String>Friday</x:String>
+                                    <x:String>Saturday</x:String>
+                                    <x:String>Sunday</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                        <Picker x:Name="EndDayPicker" Title="End Day" FontSize="16" WidthRequest="150">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Monday</x:String>
+                                    <x:String>Tuesday</x:String>
+                                    <x:String>Wednesday</x:String>
+                                    <x:String>Thursday</x:String>
+                                    <x:String>Friday</x:String>
+                                    <x:String>Saturday</x:String>
+                                    <x:String>Sunday</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Operating Time -->
+            <Frame BackgroundColor="White" CornerRadius="20" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Operating Time:" FontSize="16" TextColor="Black"/>
+                    <HorizontalStackLayout Spacing="15">
+                        <TimePicker x:Name="StartTimePicker" Time="08:00:00" FontSize="16" WidthRequest="150"/>
+                        <TimePicker x:Name="EndTimePicker" Time="17:00:00" FontSize="16" WidthRequest="150"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Services Offered -->
+            <Frame BackgroundColor="White" CornerRadius="20" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Services Offered:" FontSize="16" TextColor="Black"/>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="TireCheckbox" Color="#edf2fb"/>
+                        <Label Text="Tire Replacement" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="EngineCheckbox" Color="#edf2fb"/>
+                        <Label Text="Engine Repair" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="BatteryCheckbox" Color="#edf2fb"/>
+                        <Label Text="Battery Replacement" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox x:Name="TowingCheckbox" Color="#edf2fb"/>
+                        <Label Text="Towing Service" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Other Services -->
+            <Frame BackgroundColor="White" CornerRadius="20" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Other Services:" FontSize="16" TextColor="Black"/>
+                    <HorizontalStackLayout Spacing="10">
+                        <Entry x:Name="OtherServiceEntry"
+                               Placeholder="Type a service and press enter"
+                               Completed="OnServiceEntered"
+                               FontSize="16"
+                               WidthRequest="230"/>
+                        <Button Text="Add"
+                                BackgroundColor="#00C853"
+                                TextColor="White"
+                                FontSize="16"
+                                Padding="15,10"
+                                Clicked="OnServiceEntered"/>
+                    </HorizontalStackLayout>
+                    <FlexLayout x:Name="ServiceTagsLayout" Wrap="Wrap" Direction="Row" Margin="0,10,0,0"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Submit Button -->
+            <Button Text="Submit"
+                    BackgroundColor="#00C853"
+                    TextColor="White"
+                    FontSize="18"
+                    Padding="15"
+                    CornerRadius="10"
+                    Clicked="OnSubmitClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

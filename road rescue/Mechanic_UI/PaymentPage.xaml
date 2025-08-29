@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.PaymentPage"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#F0F2F5"
+             Shell.FlyoutBehavior="Disabled"
+             >
+
+    <AbsoluteLayout>
+
+        <!-- Side Drawer -->
+        <Grid x:Name="DrawerMenu"
+      WidthRequest="280"
+      AbsoluteLayout.LayoutBounds="0,0,280,1"
+      AbsoluteLayout.LayoutFlags="PositionProportional,HeightProportional"
+      TranslationX="-280"
+      ZIndex="2">
+
+            <!-- Gradient Background -->
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#E0F2F1" Offset="0.0" />
+                    <GradientStop Color="#F1F5F9" Offset="1.0" />
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <ScrollView>
+                <VerticalStackLayout Padding="20,40,20,20" Spacing="24">
+
+                    <!-- Profile Section -->
+                    <Frame BackgroundColor="#D1FAE5"
+       CornerRadius="20"
+       Padding="16"
+       HasShadow="True"
+       HorizontalOptions="Fill"
+       Margin="20,15">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnProfileTapped" />
+                        </Frame.GestureRecognizers>
+                        <HorizontalStackLayout Spacing="12">
+                            <Frame Padding="0"
+                           WidthRequest="50"
+                           HeightRequest="50"
+                           CornerRadius="25"
+                           IsClippedToBounds="True"
+                           HasShadow="False"
+                           BackgroundColor="#D1FAE5">
+                                <Image Source="stayvepic.png"
+                               Aspect="AspectFill"
+                               WidthRequest="50"
+                               HeightRequest="50" />
+                            </Frame>
+                            <VerticalStackLayout>
+                                <Label Text="Stayve Alreach T. Fedillaga"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               TextColor="#111827" />
+                                <Label Text="Mechanic"
+                               FontSize="12"
+                               TextColor="#6B7280" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </Frame>
+
+                    <!-- Menu Items -->
+                    <VerticalStackLayout Spacing="18">
+
+                        <Button Text="📄 Transaction History"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="✅ Paid Drivers"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="🕒 Pending Payments"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="📂 Archived"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <BoxView HeightRequest="1"
+                         BackgroundColor="#CBD5E1"
+                         Margin="0,10" />
+
+                        <Button Text="👤 Profile Settings"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="⚙️ App Settings"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="📞 Contact Support"
+                        BackgroundColor="Transparent"
+                        TextColor="#1E293B"
+                        FontSize="14"
+                        HorizontalOptions="Start" />
+
+                        <Button Text="🚪 Logout"
+                        BackgroundColor="#EF4444"
+                        TextColor="White"
+                        FontSize="14"
+                        CornerRadius="10"
+                        Padding="10,4"
+                        HorizontalOptions="Fill"
+                                Clicked="Button_Clicked"/>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+
+
+        <!-- Main Content -->
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All"
+              ZIndex="1">
+
+            <!-- Top Bar -->
+            <Grid BackgroundColor="White" Padding="15,10"
+                  ColumnDefinitions="Auto,*"
+                  VerticalOptions="Start"
+                  HeightRequest="60">
+                <ImageButton Source="icon_menu.png"
+                             WidthRequest="24"
+                             HeightRequest="24"
+                             BackgroundColor="Transparent"
+                             Clicked="OnMenuClicked" />
+                <Label Text="Rescue Payments"
+                       Grid.Column="1"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#1F2937"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center" />
+            </Grid>
+
+            <!-- Scrollable Payment Cards -->
+            <ScrollView Grid.Row="1" Margin="0,60,0,0">
+                <VerticalStackLayout Padding="20" Spacing="18">
+
+                    <!-- FRAME 1 -->
+                    <Frame BackgroundColor="White"
+                           CornerRadius="15"
+                           Padding="15"
+                           HasShadow="True"
+                           HorizontalOptions="FillAndExpand">
+
+                        <Grid>
+                            <!-- Dot Icon -->
+                            <ImageButton Source="icon_dot.png"
+                                         WidthRequest="14"
+                                         HeightRequest="14"
+                                         BackgroundColor="Transparent"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Start"
+                                         Clicked="OnMoreClicked" />
+
+                            <!-- Details -->
+                            <VerticalStackLayout Padding="0,10,0,40" Spacing="8">
+                                <Label Text="👤 Claison Pisot" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                                <Label Text="🛠 Engine Overheat" FontSize="13" TextColor="#6B7280"/>
+                                <Label Text="📍 Linut-od, Argao" FontSize="13" TextColor="#6B7280"/>
+                                <Label Text="🕒 May 29, 3:45 PM" FontSize="12" TextColor="#9CA3AF"/>
+                                <Label Text="💵 ₱750.00" FontSize="14" FontAttributes="Bold" TextColor="#10B981"/>
+                                <Label Text="💳 COR (Cash on Rescued)" FontSize="12" TextColor="#3B82F6"/>
+                            </VerticalStackLayout>
+
+                            <!-- Buttons -->
+                            <HorizontalStackLayout Spacing="10"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="End"
+                                                   Margin="0,0,0,5">
+                                <Button Text="✔ Paid" FontSize="12"
+                                        BackgroundColor="#10B981" TextColor="White"
+                                        CornerRadius="8" Padding="6,2" WidthRequest="70"
+                                        Clicked="OnPaidClicked" />
+                                <Button Text="⏳ Pending" FontSize="12"
+                                        BackgroundColor="#F59E0B" TextColor="White"
+                                        CornerRadius="8" Padding="6,2" WidthRequest="80"
+                                        Clicked="OnPendingClicked" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Frame>
+
+                    <!-- FRAME 2 -->
+                    <Frame BackgroundColor="White"
+                           CornerRadius="15"
+                           Padding="15"
+                           HasShadow="True"
+                           HorizontalOptions="FillAndExpand">
+
+                        <Grid>
+                            <ImageButton Source="icon_dot.png"
+                                         WidthRequest="14"
+                                         HeightRequest="14"
+                                         BackgroundColor="Transparent"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Start"
+                                         Clicked="OnMoreClicked" />
+
+                            <VerticalStackLayout Padding="0,10,0,40" Spacing="8">
+                                <Label Text="👤 Michael Sumaguan" FontSize="14" FontAttributes="Bold" TextColor="#374151"/>
+                                <Label Text="🛠 Flat Tire" FontSize="13" TextColor="#6B7280"/>
+                                <Label Text="📍 Taloot, Argao" FontSize="13" TextColor="#6B7280"/>
+                                <Label Text="🕒 May 29, 2:10 PM" FontSize="12" TextColor="#9CA3AF"/>
+                                <Label Text="💵 ₱400.00" FontSize="14" FontAttributes="Bold" TextColor="#10B981"/>
+                                <Label Text="💳 GCash" FontSize="12" TextColor="#3B82F6"/>
+                                <Label Text="Ref: 6789-1234-4321" FontSize="11" TextColor="#9CA3AF"/>
+                            </VerticalStackLayout>
+
+                            <HorizontalStackLayout Spacing="10"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="End"
+                                                   Margin="0,0,0,5">
+                                <Button Text="✔ Paid" FontSize="12"
+                                        BackgroundColor="#10B981" TextColor="White"
+                                        CornerRadius="8" Padding="6,2" WidthRequest="70"
+                                        Clicked="OnPaidClicked" />
+                                <Button Text="⏳ Pending" FontSize="12"
+                                        BackgroundColor="#F59E0B" TextColor="White"
+                                        CornerRadius="8" Padding="6,2" WidthRequest="80"
+                                        Clicked="OnPendingClicked" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Frame>
+
+                    <!-- You can add more frames here as needed -->
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

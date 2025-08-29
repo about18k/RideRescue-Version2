@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.NotificationPage"
+             Title="Notifications"
+             BackgroundColor="#edf2fb">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="10">
+
+            <!-- Title with Hamburger Icon -->
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Notifications"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="#21499F"
+                       VerticalOptions="Center"
+                       Grid.Column="0" />
+
+                <Label Text="☰"
+                       FontSize="30"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       Margin="0,0,0,4"
+                       Grid.Column="1">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <!-- Unread Indicator -->
+            <Label Text="You have 1 unread message"
+                   FontSize="14"
+                   TextColor="IndianRed"
+                   FontAttributes="Bold"
+                   Margin="0,0,0,20" />
+
+            <!-- Unread Notification Item -->
+            <Frame HasShadow="True" BorderColor="#b0bec5" BackgroundColor="White" CornerRadius="10" Padding="10" Margin="0,5">
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="notify.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1" Spacing="2">
+                        <Label Text="A mechanic has accepted your request." FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="Yesterday" FontSize="12" TextColor="Gray"/>
+                        <Label Text="Billing Department" FontSize="12" TextColor="Gray"/>
+                    </VerticalStackLayout>
+                    <Label Grid.Column="2" Text="Unread" FontSize="16" FontAttributes="Bold" TextColor="IndianRed" VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+
+            <!-- Read Section Title -->
+            <Label Text="Read Notifications"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   Margin="20,10,0,10" />
+
+            <!-- Read Notification Item -->
+            <Frame HasShadow="False" BorderColor="#e0e0e0" BackgroundColor="White" CornerRadius="10" Padding="10" Margin="0,5">
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="check.png" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" />
+                    <VerticalStackLayout Grid.Column="1" Spacing="2">
+                        <Label Text="Bug fixes applied to location services" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="3 days ago" FontSize="12" TextColor="Gray"/>
+                        <Label Text="QA Team" FontSize="12" TextColor="Gray"/>
+                    </VerticalStackLayout>
+                    <Label Grid.Column="2" Text="Read" FontSize="16" FontAttributes="Bold" TextColor="#10B981" VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

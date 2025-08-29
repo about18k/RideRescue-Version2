@@ -1,0 +1,8 @@
+app_user
+id(auto increment), user_id(uuid primary key), google_sub(text), full_name(text), photo_url(text), email(text), phone(text), password(text), address(text), created_at(timestamptz), updated_at(timestamptz), Role(Driver, Mechanic)
+
+mechanic_details
+id(auto increment), mechanic_id(uuid primary key), user_id(uuid), services(text), created_at(timestamptz), updated_at(timestamptz), is_verified(bool), certificate_url(text), time_open(text), time_close(text), days(text)
+
+emergency
+id(auto increment), emergency_id(uuid primary key), user_id, vehicle type, breakdown cause, attachments, emergency_status(waiting, in process, completed, canceled), created_at(timestamptz)

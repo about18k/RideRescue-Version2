@@ -1,0 +1,460 @@
+using Supabase;
+using System.Threading.Tasks;
+
+namespace road_rescue
+{
+    public static class SupabaseService
+    {
+        public static Supabase.Client Client { get; private set; }
+
+        private const string SupabaseUrl = "https://ewrlmlsetyinyhjwgoko.supabase.co";
+        private const string SupabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV3cmxtbHNldHlpbnloandnb2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUzOTk3OTgsImV4cCI6MjA3MDk3NTc5OH0.Xqt8WHv58IX-bGQt4bo887DUb0L-_4H20KLqH76DtJ8";
+
+        public static async Task InitializeAsync()
+        {
+            if (Client != null) return;
+
+            var options = new SupabaseOptions
+            {
+                AutoConnectRealtime = true
+            };
+
+            Client = new Supabase.Client(SupabaseUrl, SupabaseKey, options);
+            await Client.InitializeAsync();
+        }
+    }
+}
+
+
+using System;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using Supabase;
+using System.Web;
+using System.Text.Json;
+using System.Threading.Tasks;
+using road_rescue.Models;
+using Supabase.Postgrest;
+using System.Linq;
+
+namespace road_rescue
+{
+    public partial class App : Application
+    {
+        const string FirstLaunchKey = "IsFirstLaunch";
+
+        private const string DeepLinkScheme = "roadrescue.staging";
+        private const string DeepLinkHost = "email-callback";
+
+        private Uri? _pendingDeepLink;
+
+        public App()
+        {
+            InitializeComponent();
+            InitializeSupabase();
+        }
+
+        protected override async void OnAppLinkRequestReceived(Uri uri)
+        {
+            if (uri is null)
+            {
+                base.OnAppLinkRequestReceived(uri);
+                return;
+            }
+
+            if (uri.Scheme == DeepLinkScheme && uri.Host == DeepLinkHost)
+            {
+                if (Shell.Current is null || Current?.Windows?.Count == 0)
+                {
+                    _pendingDeepLink = uri;
+                    return;
+                }
+
+                await HandleVerificationDeepLinkAsync(uri);
+                return;
+            }
+
+            base.OnAppLinkRequestReceived(uri);
+        }
+
+        private async void InitializeSupabase()
+        {
+            await SupabaseService.InitializeAsync();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            var shell = new AppShell();
+
+            bool isFirstLaunch = Preferences.Get(FirstLaunchKey, true);
+            if (isFirstLaunch)
+            {
+                Preferences.Set(FirstLaunchKey, false);
+                shell.Dispatcher.Dispatch(async () =>
+                {
+                    await shell.GoToAsync("mainpage");
+                });
+            }
+
+            shell.Dispatcher.Dispatch(async () =>
+            {
+                if (_pendingDeepLink != null)
+                {
+                    var uriToHandle = _pendingDeepLink;
+                    _pendingDeepLink = null;
+                    await HandleVerificationDeepLinkAsync(uriToHandle);
+                }
+            });
+
+            return new Window(shell);
+        }
+
+        private async Task HandleVerificationDeepLinkAsync(Uri uri)
+        {
+            try
+            {
+                // Parse fragment: #access_token=...&refresh_token=...&type=signup
+                var fragment = uri.Fragment;
+                if (fragment.StartsWith("#"))
+                    fragment = fragment[1..];
+
+                var parameters = HttpUtility.ParseQueryString(fragment);
+                var accessToken = parameters["access_token"];
+                var refreshToken = parameters["refresh_token"];
+                var type = parameters["type"];
+
+                if (type == "signup" && !string.IsNullOrEmpty(accessToken))
+                {
+                    await SupabaseService.Client.Auth.SetSession(accessToken, refreshToken);
+
+                    var user = SupabaseService.Client.Auth.CurrentUser;
+                    if (user != null)
+                    {
+                        var signupDataJson = await SecureStorage.GetAsync("pending_signup_data");
+                        SignupData? signupData = null;
+                        if (!string.IsNullOrEmpty(signupDataJson))
+                            signupData = JsonSerializer.Deserialize<SignupData>(signupDataJson);
+
+                        // Fetch existing app_user by email (Auth user email)
+                        var existingUserResp = await SupabaseService.Client
+                            .From<AppUser>()
+                            .Select("*")
+                            .Filter("email", Supabase.Postgrest.Constants.Operator.Equals, user.Email)
+                            .Get();
+
+                        AppUser appUser;
+
+                        if (existingUserResp.Models.Count > 0)
+                        {
+                            // Update existing app_user
+                            appUser = existingUserResp.Models.First();
+                            if (signupData != null)
+                            {
+                                appUser.FullName = signupData.FullName;
+                                appUser.Phone = signupData.Phone;
+                                appUser.Address = signupData.Address;
+                                appUser.GoogleSub = signupData.GoogleSub ?? appUser.GoogleSub;
+                                appUser.PhotoUrl = signupData.PhotoUrl ?? appUser.PhotoUrl;
+                                appUser.Role = signupData.Role ?? appUser.Role;
+                            }
+                            appUser.UpdatedAt = DateTime.UtcNow;
+
+                            await SupabaseService.Client
+                                .From<AppUser>()
+                                .Update(appUser, new QueryOptions { Returning = QueryOptions.ReturnType.Representation });
+
+                            // appUser now has the persisted values.
+                        }
+                        else
+                        {
+                            // CREATE new app_user using Auth UUID for FK integrity
+                            appUser = new AppUser
+                            {
+                                UserId = Guid.Parse(user.Id), // CRITICAL: match Supabase Auth UUID
+                                FullName = signupData?.FullName
+    ?? (user.UserMetadata != null && user.UserMetadata.TryGetValue("full_name", out var fn) ? fn?.ToString() : "")
+    ?? "",
+
+                                Email = user.Email,
+                                Phone = signupData?.Phone,
+                                Address = signupData?.Address,
+                                Password = signupData?.Password, // null for Google signup
+                                GoogleSub = signupData?.GoogleSub,
+                                PhotoUrl = signupData?.PhotoUrl,
+                                Role = signupData?.Role ?? "Driver",
+                                CreatedAt = DateTime.UtcNow,
+                                UpdatedAt = DateTime.UtcNow
+                            };
+
+                            var insertResponse = await SupabaseService.Client
+                                .From<AppUser>()
+                                .Insert(appUser, new QueryOptions { Returning = QueryOptions.ReturnType.Representation });
+
+                            appUser = insertResponse.Models.FirstOrDefault()
+                                ?? throw new Exception("Failed to insert user into app_user table");
+                        }
+
+                        // If mechanic flow, upsert mechanic_details (FK-safe)
+                        if (signupData != null && signupData.Role == "Mechanic" && signupData.IsMechanicFlow)
+                        {
+                            var existingMech = await SupabaseService.Client
+                                .From<MechanicDetails>()
+                                .Select("*")
+                                .Filter("user_id", Supabase.Postgrest.Constants.Operator.Equals, appUser.UserId.ToString())
+                                .Get();
+
+                            if (existingMech.Models.Count > 0)
+                            {
+                                var mech = existingMech.Models.First();
+                                mech.CertificateUrl = signupData.CertificateUrl;
+                                mech.Services = signupData.Services;
+                                mech.TimeOpen = signupData.TimeOpen;
+                                mech.TimeClose = signupData.TimeClose;
+                                mech.Days = signupData.Days;
+                                mech.UpdatedAt = DateTime.UtcNow;
+
+                                await SupabaseService.Client
+                                    .From<MechanicDetails>()
+                                    .Update(mech, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+                            }
+                            else
+                            {
+                                var mech = new MechanicDetails
+                                {
+                                    MechanicId = Guid.NewGuid(),
+                                    UserId = appUser.UserId, // FK → app_user.user_id
+                                    CertificateUrl = signupData.CertificateUrl,
+                                    Services = signupData.Services,
+                                    TimeOpen = signupData.TimeOpen,
+                                    TimeClose = signupData.TimeClose,
+                                    Days = signupData.Days,
+                                    IsVerified = false,
+                                    CreatedAt = DateTime.UtcNow,
+                                    UpdatedAt = DateTime.UtcNow
+                                };
+
+                                var mechInsert = await SupabaseService.Client
+                                    .From<MechanicDetails>()
+                                    .Insert(mech, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+                            }
+                        }
+
+                        // Cleanup and navigate
+                        SecureStorage.Remove("pending_signup_data");
+
+                        //await Shell.Current.DisplayAlert(
+                        //    "Verified",
+                        //    "Na-verify na ang email mo. Maaari ka nang mag log-in.",
+                        //    "OK");
+
+                        await Shell.Current.Navigation.PushAsync(new landingpage());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", $"Failed to complete registration: {ex.Message}", "OK");
+                await Shell.Current.Navigation.PushAsync(new logInPage());
+            }
+        }
+    }
+}
+
+
+using Microsoft.Maui.Authentication;
+using Microsoft.Maui.Controls;
+using road_rescue.Models;
+using Supabase;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Supabase.Postgrest;
+using System.Net.Http.Json;
+
+namespace road_rescue;
+
+public partial class logInPage : ContentPage
+{
+    // === Google OAuth (Android) ===
+    private const string GoogleAndroidClientId = "153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r.apps.googleusercontent.com";
+    private const string RedirectScheme = "com.googleusercontent.apps.153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r";
+    private string RedirectUri => $"{RedirectScheme}:/oauth2redirect";
+
+    public logInPage()
+    {
+        InitializeComponent();
+    }
+
+    private async void OnLoginClicked(object sender, EventArgs e)
+    {
+        string email = emailEntry.Text?.Trim();
+        string password = passwordEntry.Text?.Trim();
+
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            await DisplayAlert("Error", "Please fill in all fields.", "OK");
+            return;
+        }
+
+        try
+        {
+            await SupabaseService.InitializeAsync();
+
+            // SAFE explicit filter (no unsupported LINQ)
+            var userResponse = await SupabaseService.Client
+                .From<AppUser>()
+                .Select("*")
+                .Filter("email", Supabase.Postgrest.Constants.Operator.Equals, email)
+                .Get();
+
+            var user = userResponse.Models.FirstOrDefault();
+
+            if (user != null && user.Password == password)
+            {
+                await DisplayAlert("Success", $"Welcome {user.FullName}!", "OK");
+
+                if (user.Role == "Mechanic")
+                    await Navigation.PushAsync(new RequestPage());
+                else
+                    await Navigation.PushAsync(new landingpage());
+
+                return;
+            }
+
+            await DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Something went wrong: {ex.Message}", "OK");
+        }
+    }
+
+    private void signup_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new signUpPage());
+    }
+
+    private async void Signinwithgoogle_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            string authUrl =
+                "https://accounts.google.com/o/oauth2/v2/auth" +
+                $"?client_id={Uri.EscapeDataString(GoogleAndroidClientId)}" +
+                $"&redirect_uri={Uri.EscapeDataString(RedirectUri)}" +
+                "&response_type=code" +
+                "&scope=openid%20email%20profile";
+
+            var result = await WebAuthenticator.Default.AuthenticateAsync(
+                new WebAuthenticatorOptions
+                {
+                    Url = new Uri(authUrl),
+                    CallbackUrl = new Uri(RedirectUri),
+                    PrefersEphemeralWebBrowserSession = true
+                });
+
+            if (result?.Properties is null || !result.Properties.TryGetValue("code", out var code))
+            {
+                await DisplayAlert("Cancelled", "Google sign-in was cancelled.", "OK");
+                return;
+            }
+
+            // Token exchange
+            var tokenResp = await new HttpClient().PostAsync(
+                "https://oauth2.googleapis.com/token",
+                new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    ["code"] = code,
+                    ["client_id"] = GoogleAndroidClientId,
+                    ["redirect_uri"] = RedirectUri,
+                    ["grant_type"] = "authorization_code"
+                }));
+
+            tokenResp.EnsureSuccessStatusCode();
+            var tokenJson = await tokenResp.Content.ReadFromJsonAsync<JsonElement>();
+            var accessToken = tokenJson.GetProperty("access_token").GetString();
+
+            // Fetch userinfo
+            var http = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Get, "https://openidconnect.googleapis.com/v1/userinfo");
+            req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            var profileResp = await http.SendAsync(req);
+            profileResp.EnsureSuccessStatusCode();
+            var profile = await profileResp.Content.ReadFromJsonAsync<JsonElement>();
+
+            string email = profile.TryGetProperty("email", out var em) ? em.GetString() ?? "" : "";
+            string googleSub = profile.TryGetProperty("sub", out var sb) ? sb.GetString() : null;
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(googleSub))
+            {
+                await DisplayAlert("Error", "Failed to get user information from Google.", "OK");
+                return;
+            }
+
+            await SupabaseService.InitializeAsync();
+
+            // Try by google_sub first
+            var userResponse = await SupabaseService.Client
+                .From<AppUser>()
+                .Select("*")
+                .Filter("google_sub", Supabase.Postgrest.Constants.Operator.Equals, googleSub)
+                .Get();
+
+            var user = userResponse.Models.FirstOrDefault();
+
+            // Fallback: try by email
+            if (user == null)
+            {
+                var byEmail = await SupabaseService.Client
+                    .From<AppUser>()
+                    .Select("*")
+                    .Filter("email", Supabase.Postgrest.Constants.Operator.Equals, email)
+                    .Get();
+
+                user = byEmail.Models.FirstOrDefault();
+            }
+
+            if (user == null)
+            {
+                await DisplayAlert("Error", "No account found with this Google account. Please sign up first.", "OK");
+                return;
+            }
+
+            // Update user profile if changed
+            string fullName = profile.TryGetProperty("name", out var n) ? n.GetString() ?? "" : "";
+            string picture = profile.TryGetProperty("picture", out var pic) ? pic.GetString() : null;
+
+            bool needsUpdate = false;
+            if (user.FullName != fullName) { user.FullName = fullName; needsUpdate = true; }
+            if (user.PhotoUrl != picture) { user.PhotoUrl = picture; needsUpdate = true; }
+            if (user.GoogleSub != googleSub) { user.GoogleSub = googleSub; needsUpdate = true; }
+
+            if (needsUpdate)
+            {
+                user.UpdatedAt = DateTime.UtcNow;
+                await SupabaseService.Client
+                    .From<AppUser>()
+                    .Update(user, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+            }
+
+            await DisplayAlert("Success", $"Welcome {user.FullName}!", "OK");
+
+            if (user.Role == "Mechanic")
+                await Navigation.PushAsync(new RequestPage());
+            else
+                await Navigation.PushAsync(new landingpage());
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Google sign-in failed: {ex.Message}", "OK");
+        }
+    }
+}
+
+private async void Button_Clicked(object sender, EventArgs e)
+{
+    await Shell.Current.GoToAsync("logInPage");
+}

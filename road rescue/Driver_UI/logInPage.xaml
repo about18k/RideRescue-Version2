@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.logInPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#edf2fb"
+             NavigationPage.HasNavigationBar="False">
+    <VerticalStackLayout Padding="30" Spacing="20">
+        <!-- Logo or Icon -->
+        <Image Source="logo2.png" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center"/>
+
+        <!-- App Name -->
+        <Label Text="RideRescue" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+        <Label Text="Vulcanizing, Repair, and Roadside Help" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+
+        <!-- Email Entry -->
+        <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White"
+                Padding="5" StrokeShape="RoundRectangle 10">
+            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                <Image Source="emailicon.png" WidthRequest="20" HeightRequest="20"
+                       VerticalOptions="Center"/>
+                <Entry x:Name="emailEntry" Placeholder="Email" TextColor="Black" 
+                       PlaceholderColor="Gray" HorizontalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- Password Entry -->
+        <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White"
+                Padding="5" StrokeShape="RoundRectangle 10">
+            <HorizontalStackLayout VerticalOptions="Center" Spacing="10">
+                <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20"
+                       VerticalOptions="Center"/>
+                <Entry x:Name="passwordEntry" Placeholder="Password" IsPassword="True"
+                       TextColor="Black" PlaceholderColor="Gray" HorizontalOptions="FillAndExpand"/>
+            </HorizontalStackLayout>
+        </Border>
+
+        <!-- Forgot Password -->
+        <Label Text="Forgot Password?" TextColor="Blue" FontSize="12" HorizontalOptions="End" />
+
+        <!-- Login Button -->
+        <Button Text="Login" Clicked="OnLoginClicked" BackgroundColor="#21499F" TextColor="White"/>
+
+        <!-- Divider -->
+        <Label Text="or" FontSize="14" HorizontalOptions="Center"/>
+
+        <!-- Google Sign-in Button -->
+        <Button x:Name="Signinwithgoogle" Text="Sign in with Google" Clicked="Signinwithgoogle_Clicked"  
+                BackgroundColor="White" TextColor="#4285F4" BorderColor="#4285F4" BorderWidth="1"/>
+
+        <!-- Sign-up Button -->
+        <Button Text="Create an account" 
+                x:Name="signup"
+                Clicked="signup_Clicked" 
+                BackgroundColor="Gray" 
+                TextColor="White"/>
+    </VerticalStackLayout>
+</ContentPage>

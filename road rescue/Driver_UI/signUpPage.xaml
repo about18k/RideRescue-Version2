@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.signUpPage"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutItemIsVisible="False"
+             BackgroundColor="#edf2fb"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="20">
+
+                <!-- Logo -->
+                <Image Source="logo2.png" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center"/>
+
+                <!-- App Name -->
+                <Label Text="RideRescue" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="Vulcanizing, Repair, and Roadside Help" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+
+                <!-- Role Picker -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="10" StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Select Role" FontAttributes="Bold" FontSize="14"/>
+                        <Picker x:Name="rolePicker"
+                                Title="Choose role"
+                                SelectedIndexChanged="OnRoleSelectedChanged">
+                            <Picker.Items>
+                                <x:String>Mechanic</x:String>
+                                <x:String>Driver</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Full Name -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="emailicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="fullnameEntry" Placeholder="Fullname" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Email -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="pfp.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="emailEntry" Placeholder="Email" Keyboard="Email" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Phone -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center" Padding="5,0">
+                        <Image Source="phone.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0" Grid.Column="0"/>
+                        <Entry x:Name="phoneEntry" Placeholder="09XX XXX XXXX" Keyboard="Telephone" MaxLength="11" BackgroundColor="Transparent" TextColor="Black" Grid.Column="2" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Password -->
+                <Border x:Name="PasswordRow" Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="passwordEntry" Placeholder="Password" IsPassword="True" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Confirm Password -->
+                <Border x:Name="ConfirmPasswordRow" Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="ConfirmpasswordEntry" Placeholder="Confirm Password" IsPassword="True" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Address -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="AddressEntry" Placeholder="Address"  TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- MECHANIC-ONLY SECTION -->
+                <VerticalStackLayout x:Name="mechanicFields" IsVisible="False" Spacing="15">
+
+                    <!-- Certificate Upload -->
+                    <VerticalStackLayout>
+                        <Label Text="Upload Certificate" FontAttributes="Bold"/>
+                        <Button Text="Choose File" Clicked="OnUploadCertificateClicked" BackgroundColor="#ccc"/>
+                        <Label x:Name="certificateLabel" TextColor="Blue" FontAttributes="Italic" IsVisible="False">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnViewCertificateTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Services Offered -->
+                    <VerticalStackLayout>
+                        <Label Text="Services Offered" FontAttributes="Bold"/>
+
+                        <ScrollView HeightRequest="250">
+                            <VerticalStackLayout Spacing="10">
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbOilChange" Color="#21499F"/>
+                                    <Label Text="Oil Change" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbEngineTuneUp" Color="#21499F"/>
+                                    <Label Text="Engine Tune-up" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBrakeRepair" Color="#21499F"/>
+                                    <Label Text="Brake Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbTransmissionService" Color="#21499F"/>
+                                    <Label Text="Transmission Service" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelAlignment" Color="#21499F"/>
+                                    <Label Text="Wheel Alignment" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbTireRotation" Color="#21499F"/>
+                                    <Label Text="Tire Rotation" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBatteryReplacement" Color="#21499F"/>
+                                    <Label Text="Battery Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbElectricalRepair" Color="#21499F"/>
+                                    <Label Text="Electrical System Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbSuspensionRepair" Color="#21499F"/>
+                                    <Label Text="Suspension Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbACService" Color="#21499F"/>
+                                    <Label Text="Air Conditioning Service" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbExhaustRepair" Color="#21499F"/>
+                                    <Label Text="Exhaust System Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbDiagnostics" Color="#21499F"/>
+                                    <Label Text="Diagnostic Services" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelBalancing" Color="#21499F"/>
+                                    <Label Text="Wheel Balancing" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbRadiatorFlush" Color="#21499F"/>
+                                    <Label Text="Radiator Flush" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbFuelSystem" Color="#21499F"/>
+                                    <Label Text="Fuel System Cleaning" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBeltsHoses" Color="#21499F"/>
+                                    <Label Text="Belt and Hose Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbHeadlightRestoration" Color="#21499F"/>
+                                    <Label Text="Headlight Restoration" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWiperReplacement" Color="#21499F"/>
+                                    <Label Text="Windshield Wiper Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelRepair" Color="#21499F"/>
+                                    <Label Text="Wheel Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbVulcanizing" Color="#21499F"/>
+                                    <Label Text="Vulcanizing/Tire Patching" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </ScrollView>
+
+                        <VerticalStackLayout Spacing="10"  Padding="10" >
+                            <Label Text="Shop Schedule" FontAttributes="Bold" />
+
+                            <!-- Days Picker -->
+                            <VerticalStackLayout Spacing="10" Padding="10">
+                                <Label Text="Shop Days" FontAttributes="Bold" />
+
+                                <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="Auto,Auto" HorizontalOptions="Start">
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                                        <CheckBox x:Name="cbMonday" Color="#21499F"/>
+                                        <Label Text="M"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+                                        <CheckBox x:Name="cbTuesday" Color="#21499F"/>
+                                        <Label Text="T"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="2">
+                                        <CheckBox x:Name="cbWednesday" Color="#21499F"/>
+                                        <Label Text="W"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="3">
+                                        <CheckBox x:Name="cbThursday" Color="#21499F"/>
+                                        <Label Text="Th" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+                                        <CheckBox x:Name="cbFriday" Color="#21499F"/>
+                                        <Label Text="F"   VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                                        <CheckBox x:Name="cbSaturday" Color="#21499F"/>
+                                        <Label Text="Sat" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="2">
+                                        <CheckBox x:Name="cbSunday" Color="#21499F"/>
+                                        <Label Text="Sun" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+
+                                <!-- Time pickers -->
+                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" Padding="0,10,0,0">
+                                    <Label Text="Hours:" VerticalOptions="Center"/>
+                                    <TimePicker x:Name="openTimePicker" Time="08:00" WidthRequest="90"/>
+                                    <Label Text="to" VerticalOptions="Center"/>
+                                    <TimePicker x:Name="closeTimePicker" Time="22:00" WidthRequest="90"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ACTION BUTTONS -->
+                <VerticalStackLayout Spacing="10">
+                    <Button x:Name="SignupButton" Text="Signup" Clicked="Button_Clicked" BackgroundColor="#21499F" TextColor="White"/>
+                    <Button x:Name="Signupwithgoogle" Text="Google" Clicked="Signupwithgoogle_Clicked" BackgroundColor="#21499F" TextColor="White"/>
+                    <Button x:Name="ContinueBtn" Text="Continue" Clicked="ContinueBtn_Clicked" BackgroundColor="#21499F" TextColor="White" IsVisible="False"/>
+                    <Label x:Name="OrLabel" Text="or" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Button x:Name="login" Text="Already have an account?" Clicked="login_Clicked" BackgroundColor="Gray" TextColor="White"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False"
+              BackgroundColor="#4D000000"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+                <Image x:Name="LoadingImage" Source="loading.png" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Text="Processing..." TextColor="White" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>

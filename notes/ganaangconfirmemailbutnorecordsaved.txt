@@ -1,0 +1,1255 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.signUpPage"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutItemIsVisible="False"
+             BackgroundColor="#edf2fb"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="30" Spacing="20">
+
+                <!-- Logo -->
+                <Image Source="logo2.png" WidthRequest="200" HeightRequest="200" HorizontalOptions="Center"/>
+
+                <!-- App Name -->
+                <Label Text="RideRescue" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+                <Label Text="Vulcanizing, Repair, and Roadside Help" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+
+                <!-- Role Picker -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="10" StrokeShape="RoundRectangle 10">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Select Role" FontAttributes="Bold" FontSize="14"/>
+                        <Picker x:Name="rolePicker"
+                                Title="Choose role"
+                                SelectedIndexChanged="OnRoleSelectedChanged">
+                            <Picker.Items>
+                                <x:String>Mechanic</x:String>
+                                <x:String>Driver</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Full Name -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="emailicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="fullnameEntry" Placeholder="Fullname" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Email -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="pfp.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="emailEntry" Placeholder="Email" Keyboard="Email" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Phone -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <Grid ColumnDefinitions="Auto, Auto, *" VerticalOptions="Center" Padding="5,0">
+                        <Image Source="phone.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0" Grid.Column="0"/>
+                        <Entry x:Name="phoneEntry" Placeholder="09XX XXX XXXX" Keyboard="Telephone" MaxLength="11" BackgroundColor="Transparent" TextColor="Black" Grid.Column="2" VerticalOptions="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Password -->
+                <Border x:Name="PasswordRow" Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="passwordEntry" Placeholder="Password" IsPassword="True" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Confirm Password -->
+                <Border x:Name="ConfirmPasswordRow" Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="ConfirmpasswordEntry" Placeholder="Confirm Password" IsPassword="True" TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Address -->
+                <Border Stroke="Gray" StrokeThickness="1" BackgroundColor="White" Padding="5" StrokeShape="RoundRectangle 10">
+                    <HorizontalStackLayout>
+                        <Image Source="passwordicon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Margin="5,0,10,0"/>
+                        <Entry x:Name="AddressEntry" Placeholder="Address"  TextColor="Black" PlaceholderColor="Gray" BackgroundColor="Transparent"/>
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- MECHANIC-ONLY SECTION -->
+                <VerticalStackLayout x:Name="mechanicFields" IsVisible="False" Spacing="15">
+
+                    <!-- Certificate Upload -->
+                    <VerticalStackLayout>
+                        <Label Text="Upload Certificate" FontAttributes="Bold"/>
+                        <Button Text="Choose File" Clicked="OnUploadCertificateClicked" BackgroundColor="#ccc"/>
+                        <Label x:Name="certificateLabel" TextColor="Blue" FontAttributes="Italic" IsVisible="False">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnViewCertificateTapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </VerticalStackLayout>
+
+                    <!-- Services Offered -->
+                    <VerticalStackLayout>
+                        <Label Text="Services Offered" FontAttributes="Bold"/>
+
+                        <ScrollView HeightRequest="250">
+                            <VerticalStackLayout Spacing="10">
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbOilChange" Color="#21499F"/>
+                                    <Label Text="Oil Change" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbEngineTuneUp" Color="#21499F"/>
+                                    <Label Text="Engine Tune-up" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBrakeRepair" Color="#21499F"/>
+                                    <Label Text="Brake Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbTransmissionService" Color="#21499F"/>
+                                    <Label Text="Transmission Service" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelAlignment" Color="#21499F"/>
+                                    <Label Text="Wheel Alignment" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbTireRotation" Color="#21499F"/>
+                                    <Label Text="Tire Rotation" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBatteryReplacement" Color="#21499F"/>
+                                    <Label Text="Battery Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbElectricalRepair" Color="#21499F"/>
+                                    <Label Text="Electrical System Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbSuspensionRepair" Color="#21499F"/>
+                                    <Label Text="Suspension Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbACService" Color="#21499F"/>
+                                    <Label Text="Air Conditioning Service" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbExhaustRepair" Color="#21499F"/>
+                                    <Label Text="Exhaust System Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbDiagnostics" Color="#21499F"/>
+                                    <Label Text="Diagnostic Services" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelBalancing" Color="#21499F"/>
+                                    <Label Text="Wheel Balancing" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbRadiatorFlush" Color="#21499F"/>
+                                    <Label Text="Radiator Flush" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbFuelSystem" Color="#21499F"/>
+                                    <Label Text="Fuel System Cleaning" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbBeltsHoses" Color="#21499F"/>
+                                    <Label Text="Belt and Hose Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbHeadlightRestoration" Color="#21499F"/>
+                                    <Label Text="Headlight Restoration" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWiperReplacement" Color="#21499F"/>
+                                    <Label Text="Windshield Wiper Replacement" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbWheelRepair" Color="#21499F"/>
+                                    <Label Text="Wheel Repair" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="10">
+                                    <CheckBox x:Name="cbVulcanizing" Color="#21499F"/>
+                                    <Label Text="Vulcanizing/Tire Patching" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </ScrollView>
+
+                        <VerticalStackLayout Spacing="10"  Padding="10" >
+                            <Label Text="Shop Schedule" FontAttributes="Bold" />
+
+                            <!-- Days Picker -->
+                            <VerticalStackLayout Spacing="10" Padding="10">
+                                <Label Text="Shop Days" FontAttributes="Bold" />
+
+                                <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="Auto,Auto" HorizontalOptions="Start">
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="0">
+                                        <CheckBox x:Name="cbMonday" Color="#21499F"/>
+                                        <Label Text="M"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+                                        <CheckBox x:Name="cbTuesday" Color="#21499F"/>
+                                        <Label Text="T"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="2">
+                                        <CheckBox x:Name="cbWednesday" Color="#21499F"/>
+                                        <Label Text="W"  VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="0" Grid.Column="3">
+                                        <CheckBox x:Name="cbThursday" Color="#21499F"/>
+                                        <Label Text="Th" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="0">
+                                        <CheckBox x:Name="cbFriday" Color="#21499F"/>
+                                        <Label Text="F"   VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1">
+                                        <CheckBox x:Name="cbSaturday" Color="#21499F"/>
+                                        <Label Text="Sat" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="2">
+                                        <CheckBox x:Name="cbSunday" Color="#21499F"/>
+                                        <Label Text="Sun" VerticalOptions="Center" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+
+                                <!-- Time pickers -->
+                                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" Padding="0,10,0,0">
+                                    <Label Text="Hours:" VerticalOptions="Center"/>
+                                    <TimePicker x:Name="openTimePicker" Time="08:00" WidthRequest="90"/>
+                                    <Label Text="to" VerticalOptions="Center"/>
+                                    <TimePicker x:Name="closeTimePicker" Time="22:00" WidthRequest="90"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- ACTION BUTTONS -->
+                <VerticalStackLayout Spacing="10">
+                    <Button x:Name="SignupButton" Text="Signup" Clicked="Button_Clicked" BackgroundColor="#21499F" TextColor="White"/>
+                    <Button x:Name="Signupwithgoogle" Text="Google" Clicked="Signupwithgoogle_Clicked" BackgroundColor="#21499F" TextColor="White"/>
+                    <Button x:Name="ContinueBtn" Text="Continue" Clicked="ContinueBtn_Clicked" BackgroundColor="#21499F" TextColor="White" IsVisible="False"/>
+                    <Label x:Name="OrLabel" Text="or" FontSize="12" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Button x:Name="login" Text="Already have an account?" Clicked="login_Clicked" BackgroundColor="Gray" TextColor="White"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid x:Name="LoadingOverlay" 
+              IsVisible="False"
+              BackgroundColor="#4D000000"
+              HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+
+            <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+                <Image x:Name="LoadingImage" Source="loading.png" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Text="Processing..." TextColor="White" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>
+
+
+// signUpPage.xaml.cs
+using Microsoft.Maui.Authentication;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Shapes;
+using Microsoft.Maui.Storage;
+using road_rescue.Models;
+using Supabase;
+using Supabase.Gotrue;               // <-- for SignUpOptions, GotrueException
+using Supabase.Gotrue.Exceptions;
+using Supabase.Postgrest;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
+using System.Threading.Tasks;
+
+namespace road_rescue
+{
+    public partial class signUpPage : ContentPage
+    {
+        private string selectedCertificatePath = string.Empty;
+
+        // === Google OAuth (Android) ===
+        private const string GoogleAndroidClientId =
+            "153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r.apps.googleusercontent.com";
+
+        private const string RedirectScheme =
+            "com.googleusercontent.apps.153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r";
+
+        private string RedirectUri => $"{RedirectScheme}:/oauth2redirect";
+
+        // Deep link used by Supabase email verification (must also be in Supabase "Redirect URLs")
+        private const string EmailCallbackDeepLink = "roadrescue.staging://email-callback";
+
+        // Supabase Storage
+        private const string CertificateBucket = "certificates";
+
+        // Hold Google profile for saving later
+        private string? _googleSub = null;
+        private string? _googlePhotoUrl = null;
+        private bool _isGoogleMechanicFlow = false;
+
+        // Animation
+        private bool _isAnimating = false;
+
+        public signUpPage()
+        {
+            InitializeComponent();
+
+            // Default role to Driver (index 1: Mechanic=0, Driver=1)
+            rolePicker.SelectedIndex = 1;
+            UpdateRoleUI();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            StartLoadingAnimation();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            StopLoadingAnimation();
+        }
+
+        private void StartLoadingAnimation()
+        {
+            if (_isAnimating) return;
+
+            _isAnimating = true;
+            var animation = new Animation(v => LoadingImage.Rotation = v, 0, 360);
+            animation.Commit(LoadingImage, "LoadingRotation", length: 1000,
+                repeat: () => _isAnimating, easing: Easing.Linear);
+        }
+
+        private void StopLoadingAnimation()
+        {
+            _isAnimating = false;
+            LoadingImage.AbortAnimation("LoadingRotation");
+        }
+
+        private void ShowLoading(bool show)
+        {
+            LoadingOverlay.IsVisible = show;
+            if (show) StartLoadingAnimation(); else StopLoadingAnimation();
+        }
+
+        private void login_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new logInPage());
+        }
+
+        private string CurrentRole =>
+            rolePicker.SelectedItem?.ToString() ?? "Driver";
+
+        private bool IsMechanic =>
+            string.Equals(CurrentRole, "Mechanic", StringComparison.OrdinalIgnoreCase);
+
+        private void OnRoleSelectedChanged(object? sender, EventArgs e)
+        {
+            _isGoogleMechanicFlow = false;
+            UpdateRoleUI();
+        }
+
+        private void UpdateRoleUI()
+        {
+            mechanicFields.IsVisible = IsMechanic;
+
+            PasswordRow.IsVisible = true;
+            ConfirmPasswordRow.IsVisible = true;
+
+            SignupButton.IsVisible = true;
+            Signupwithgoogle.IsVisible = true;
+            ContinueBtn.IsVisible = false;
+            OrLabel.IsVisible = true;
+            login.IsVisible = true;
+        }
+
+        // =========================
+        // Manual Signup (with Supabase email verification)
+        // =========================
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowLoading(true);
+                await SupabaseService.InitializeAsync();
+
+                var fullname = fullnameEntry.Text?.Trim();
+                var email = emailEntry.Text?.Trim();
+                var password = passwordEntry.Text?.Trim();
+                var confirmPassword = ConfirmpasswordEntry.Text?.Trim();
+
+                if (string.IsNullOrWhiteSpace(fullname) ||
+                    string.IsNullOrWhiteSpace(email) ||
+                    string.IsNullOrWhiteSpace(password))
+                {
+                    await DisplayAlert("Error", "Full name, Email, and Password are required.", "OK");
+                    return;
+                }
+
+                if (password != confirmPassword)
+                {
+                    await DisplayAlert("Error", "Passwords do not match.", "OK");
+                    return;
+                }
+
+                // 1) Trigger Supabase Auth email verification (no DB insert yet)
+                var options = new SignUpOptions
+                {
+                    RedirectTo = "roadrescue.staging://email-callback"   // must be whitelisted in Supabase
+                };
+
+                var session = await SupabaseService.Client.Auth.SignUp(email!, password!, options);
+                // session can be null until the user confirms – that’s expected.
+
+                // 2) Inform the user to check email, then go to Login
+                await DisplayAlert(
+                    "Notice",
+                    "kailangan pa e verify ang iyong acc, palaging mag check sa iyong email para sa update.",
+                    "OK");
+
+                await Navigation.PushAsync(new logInPage());
+            }
+            catch (GotrueException gx)
+            {
+                await DisplayAlert("Signup failed", gx.Message, "OK");
+            }
+            catch (Exception ex)
+            {
+                await ShowPgError(ex, "Signup failed");
+            }
+            finally
+            {
+                ShowLoading(false);
+            }
+        }
+
+        // =========================
+        // Upload certificate (image)
+        // =========================
+        private async void OnUploadCertificateClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = await FilePicker.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Select your certificate",
+                    FileTypes = FilePickerFileType.Images
+                });
+
+                if (result != null)
+                {
+                    selectedCertificatePath = result.FullPath;
+                    certificateLabel.Text = System.IO.Path.GetFileName(selectedCertificatePath);
+                    certificateLabel.IsVisible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"File selection failed: {ex.Message}", "OK");
+            }
+        }
+
+        private async void OnViewCertificateTapped(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(selectedCertificatePath)) return;
+
+            var image = new Image
+            {
+                Source = ImageSource.FromFile(selectedCertificatePath),
+                HeightRequest = 300,
+                Aspect = Aspect.AspectFit
+            };
+
+            var closeButton = new Button
+            {
+                Text = "Close",
+                BackgroundColor = Colors.Gray,
+                TextColor = Colors.White
+            };
+
+            var popupContent = new VerticalStackLayout
+            {
+                Padding = 20,
+                Spacing = 20,
+                Children = { image, closeButton }
+            };
+
+            var popup = new ContentPage
+            {
+                Content = new Border
+                {
+                    Content = popupContent,
+                    BackgroundColor = Colors.White,
+                    Padding = 10,
+                    StrokeShape = new RoundRectangle { CornerRadius = new CornerRadius(10) },
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center
+                },
+                BackgroundColor = new Color(0f, 0f, 0f, 0.5f)
+            };
+
+            closeButton.Clicked += (s, args) => Application.Current.MainPage.Navigation.PopModalAsync();
+            await Navigation.PushModalAsync(popup);
+        }
+
+        // =========================
+        // GOOGLE SIGN-IN (prefill only)
+        // =========================
+        private async void Signupwithgoogle_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                string authUrl =
+                    "https://accounts.google.com/o/oauth2/v2/auth" +
+                    $"?client_id={Uri.EscapeDataString(GoogleAndroidClientId)}" +
+                    $"&redirect_uri={Uri.EscapeDataString(RedirectUri)}" +
+                    "&response_type=code" +
+                    "&scope=openid%20email%20profile";
+
+                var result = await WebAuthenticator.Default.AuthenticateAsync(
+                    new WebAuthenticatorOptions
+                    {
+                        Url = new Uri(authUrl),
+                        CallbackUrl = new Uri(RedirectUri),
+                        PrefersEphemeralWebBrowserSession = true
+                    });
+
+                if (result?.Properties is null || !result.Properties.TryGetValue("code", out var code))
+                {
+                    await DisplayAlert("Cancelled", "Google sign-in was cancelled.", "OK");
+                    return;
+                }
+
+                // Exchange code for tokens
+                var tokenResp = await new HttpClient().PostAsync(
+                    "https://oauth2.googleapis.com/token",
+                    new FormUrlEncodedContent(new Dictionary<string, string>
+                    {
+                        ["code"] = code,
+                        ["client_id"] = GoogleAndroidClientId,
+                        ["redirect_uri"] = RedirectUri,
+                        ["grant_type"] = "authorization_code"
+                    }));
+
+                tokenResp.EnsureSuccessStatusCode();
+                var tokenJson = await tokenResp.Content.ReadFromJsonAsync<JsonElement>();
+                var accessToken = tokenJson.GetProperty("access_token").GetString();
+
+                // Fetch userinfo
+                var http = new HttpClient();
+                var req = new HttpRequestMessage(HttpMethod.Get, "https://openidconnect.googleapis.com/v1/userinfo");
+                req.Headers.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                var profileResp = await http.SendAsync(req);
+                profileResp.EnsureSuccessStatusCode();
+                var profile = await profileResp.Content.ReadFromJsonAsync<JsonElement>();
+
+                string fullName = profile.TryGetProperty("name", out var n) ? n.GetString() ?? "" : "";
+                string email = profile.TryGetProperty("email", out var em) ? em.GetString() ?? "" : "";
+                string picture = profile.TryGetProperty("picture", out var pic) ? pic.GetString() : "";
+                string sub = profile.TryGetProperty("sub", out var sb) ? sb.GetString() : null;
+
+                fullnameEntry.Text = fullName;
+                emailEntry.Text = email;
+
+                _googleSub = sub;
+                _googlePhotoUrl = picture;
+
+                if (IsMechanic)
+                {
+                    await DisplayAlert(
+                        "Almost there",
+                        "Since you selected Mechanic, please fill the remaining details. Password is not required.",
+                        "OK");
+
+                    _isGoogleMechanicFlow = true;
+                    mechanicFields.IsVisible = true;
+
+                    PasswordRow.IsVisible = false;
+                    ConfirmPasswordRow.IsVisible = false;
+
+                    SignupButton.IsVisible = false;
+                    Signupwithgoogle.IsVisible = false;
+                    login.IsVisible = false;
+                    OrLabel.IsVisible = false;
+                    ContinueBtn.IsVisible = true;
+                }
+                else
+                {
+                    await DisplayAlert(
+                        "Prefilled",
+                        "We fetched your Google profile. Review or add any missing info, then tap Signup.",
+                        "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await ShowPgError(ex, "Google sign-in failed");
+            }
+        }
+
+        // =========================
+        // Continue (Mechanic + Google)
+        // =========================
+        private async void ContinueBtn_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowLoading(true);
+
+                if (!_isGoogleMechanicFlow)
+                {
+                    await DisplayAlert("Notice", "Continue is only for Google + Mechanic flow.", "OK");
+                    return;
+                }
+
+                // 1) Gather inputs
+                string fullNameRaw = fullnameEntry.Text?.Trim() ?? "";
+                string emailRaw = emailEntry.Text?.Trim() ?? "";
+                string phoneRaw = phoneEntry.Text?.Trim();
+                string? phoneSanitized = SanitizePhone(phoneRaw);
+                string? addressRaw = AddressEntry.Text?.Trim();
+
+                var servicesList = CollectServices();
+                string servicesCsv = string.Join(",", servicesList);
+
+                var (openStr, closeStr) = GetOpenCloseTimes();
+                var daysCsv = GetSelectedDaysCsv();
+
+                if (string.IsNullOrWhiteSpace(fullNameRaw) || string.IsNullOrWhiteSpace(emailRaw))
+                {
+                    await DisplayAlert("Missing Info", "Fullname and Email are required.", "OK");
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(addressRaw))
+                {
+                    await DisplayAlert("Missing Info", "Please provide your Address.", "OK");
+                    return;
+                }
+                if (servicesList.Count == 0)
+                {
+                    await DisplayAlert("Missing Services", "Please select at least one service you offer.", "OK");
+                    return;
+                }
+                if (string.IsNullOrEmpty(daysCsv))
+                {
+                    await DisplayAlert("Missing Schedule", "Pick at least one shop day.", "OK");
+                    return;
+                }
+
+                // 2) Create or fetch Google user in app_user
+                AppUser? user = await GetOrCreateGoogleUserAsync();
+                if (user == null)
+                {
+                    await DisplayAlert("Error", "Failed to create user account.", "OK");
+                    return;
+                }
+
+                // 3) Upload cert (optional)
+                string? certUrl = null;
+                try { certUrl = await UploadCertificateIfAnyAsync(); } catch { /* ignore */ }
+
+                // 4) Build and insert mechanic details
+                var mech = new MechanicDetails
+                {
+                    MechanicId = Guid.NewGuid(),
+                    UserId = user.UserId,
+                    CertificateUrl = certUrl,
+                    Services = servicesCsv,
+                    TimeOpen = openStr,
+                    TimeClose = closeStr,
+                    Days = daysCsv,
+                    IsVerified = false,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow
+                };
+
+                await SupabaseService.Client
+                    .From<MechanicDetails>()
+                    .Insert(mech, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+
+                // 5) Alert + redirect
+                await DisplayAlert("Notice",
+                    "Your account still needs to be verified, always check your email for updates.",
+                    "OK");
+
+                await Navigation.PushAsync(new logInPage());
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to complete registration: {ex.Message}", "OK");
+            }
+            finally
+            {
+                ShowLoading(false);
+            }
+        }
+
+        // =========================
+        // Helpers
+        // =========================
+        private static string? SanitizePhone(string? raw)
+        {
+            if (string.IsNullOrWhiteSpace(raw)) return null;
+            var digits = new string(raw.Where(char.IsDigit).ToArray());
+            return string.IsNullOrEmpty(digits) ? null : digits;
+        }
+
+        private async Task<AppUser?> FetchUserByEmailAsync(string email)
+        {
+            var resp = await SupabaseService.Client
+                .From<AppUser>()
+                .Select("*")
+                .Filter("email", Supabase.Postgrest.Constants.Operator.Equals, email)
+                .Get();
+
+            return resp.Models.FirstOrDefault();
+        }
+
+        // Create or fetch the Google user by google_sub
+        private async Task<AppUser?> GetOrCreateGoogleUserAsync()
+        {
+            await SupabaseService.InitializeAsync();
+
+            if (string.IsNullOrEmpty(_googleSub))
+                return null;
+
+            // 1) Look up existing user by google_sub
+            var existingResp = await SupabaseService.Client
+                .From<AppUser>()
+                .Select("*")
+                .Filter("google_sub", Supabase.Postgrest.Constants.Operator.Equals, _googleSub)
+                .Get();
+
+            var existing = existingResp.Models.FirstOrDefault();
+            if (existing != null)
+            {
+                bool changed = false;
+
+                string fullName = fullnameEntry.Text?.Trim() ?? existing.FullName;
+                string email = emailEntry.Text?.Trim() ?? existing.Email;
+                string? phone = SanitizePhone(phoneEntry.Text?.Trim());
+                string? address = AddressEntry.Text?.Trim();
+                string newRole = CurrentRole;
+
+                if (existing.FullName != fullName) { existing.FullName = fullName; changed = true; }
+                if (existing.Email != email) { existing.Email = email; changed = true; }
+                if (existing.Phone != phone) { existing.Phone = phone; changed = true; }
+                if (existing.Address != address) { existing.Address = address; changed = true; }
+                if (!string.Equals(existing.Role, newRole, StringComparison.OrdinalIgnoreCase)) { existing.Role = newRole; changed = true; }
+                if (existing.PhotoUrl != _googlePhotoUrl) { existing.PhotoUrl = _googlePhotoUrl; changed = true; }
+
+                if (changed)
+                {
+                    existing.UpdatedAt = DateTime.UtcNow;
+                    await SupabaseService.Client
+                        .From<AppUser>()
+                        .Update(existing, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+                }
+
+                return existing;
+            }
+
+            // 2) Insert a new Google user (password MUST be null)
+            var appUser = new AppUser
+            {
+                UserId = Guid.NewGuid(),
+                FullName = fullnameEntry.Text?.Trim() ?? "",
+                Email = emailEntry.Text?.Trim() ?? "",
+                Phone = SanitizePhone(phoneEntry.Text?.Trim()),
+                Address = AddressEntry.Text?.Trim(),
+                GoogleSub = _googleSub,
+                Password = null,
+                PhotoUrl = _googlePhotoUrl,
+                Role = CurrentRole,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
+            await SupabaseService.Client
+                .From<AppUser>()
+                .Insert(appUser, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+
+            return await FetchUserByEmailAsync(appUser.Email);
+        }
+
+        private List<string> CollectServices()
+        {
+            var services = new List<string>();
+            if (cbOilChange.IsChecked) services.Add("Oil Change");
+            if (cbEngineTuneUp.IsChecked) services.Add("Engine Tune-up");
+            if (cbBrakeRepair.IsChecked) services.Add("Brake Repair");
+            if (cbTransmissionService.IsChecked) services.Add("Transmission Service");
+            if (cbWheelAlignment.IsChecked) services.Add("Wheel Alignment");
+            if (cbTireRotation.IsChecked) services.Add("Tire Rotation");
+            if (cbBatteryReplacement.IsChecked) services.Add("Battery Replacement");
+            if (cbElectricalRepair.IsChecked) services.Add("Electrical System Repair");
+            if (cbSuspensionRepair.IsChecked) services.Add("Suspension Repair");
+            if (cbACService.IsChecked) services.Add("Air Conditioning Service");
+            if (cbExhaustRepair.IsChecked) services.Add("Exhaust System Repair");
+            if (cbDiagnostics.IsChecked) services.Add("Diagnostic Services");
+            if (cbWheelBalancing.IsChecked) services.Add("Wheel Balancing");
+            if (cbRadiatorFlush.IsChecked) services.Add("Radiator Flush");
+            if (cbFuelSystem.IsChecked) services.Add("Fuel System Cleaning");
+            if (cbBeltsHoses.IsChecked) services.Add("Belt and Hose Replacement");
+            if (cbHeadlightRestoration.IsChecked) services.Add("Headlight Restoration");
+            if (cbWiperReplacement.IsChecked) services.Add("Windshield Wiper Replacement");
+            if (cbWheelRepair.IsChecked) services.Add("Wheel Repair");
+            if (cbVulcanizing.IsChecked) services.Add("Vulcanizing/Tire Patching");
+            return services;
+        }
+
+        // Returns ("HH:mm","HH:mm")
+        private (string openStr, string closeStr) GetOpenCloseTimes()
+        {
+            var openTs = openTimePicker?.Time ?? new TimeSpan(8, 0, 0);
+            var closeTs = closeTimePicker?.Time ?? new TimeSpan(22, 0, 0);
+
+            if (openTs >= closeTs)
+                closeTs = openTs.Add(TimeSpan.FromHours(1));
+
+            string open = $"{openTs.Hours:D2}:{openTs.Minutes:D2}";
+            string close = $"{closeTs.Hours:D2}:{closeTs.Minutes:D2}";
+            return (open, close);
+        }
+
+        // CSV like "mon,tue,wed"
+        private string GetSelectedDaysCsv()
+        {
+            var days = new List<string>();
+            if (cbMonday.IsChecked) days.Add("mon");
+            if (cbTuesday.IsChecked) days.Add("tue");
+            if (cbWednesday.IsChecked) days.Add("wed");
+            if (cbThursday.IsChecked) days.Add("thu");
+            if (cbFriday.IsChecked) days.Add("fri");
+            if (cbSaturday.IsChecked) days.Add("sat");
+            if (cbSunday.IsChecked) days.Add("sun");
+            return string.Join(",", days);
+        }
+
+        private async Task<string?> UploadCertificateIfAnyAsync()
+        {
+            if (string.IsNullOrEmpty(selectedCertificatePath))
+                return null;
+
+            await SupabaseService.InitializeAsync();
+
+            var fileName = System.IO.Path.GetFileName(selectedCertificatePath);
+            var safeEmail = (emailEntry.Text ?? "unknown").Replace("@", "_at_").Replace(".", "_");
+            var objectPath = $"{safeEmail}/{DateTime.UtcNow:yyyyMMdd_HHmmss}_{fileName}";
+
+            var storage = SupabaseService.Client.Storage;
+
+            string contentType = fileName.ToLowerInvariant() switch
+            {
+                var f when f.EndsWith(".png") => "image/png",
+                var f when f.EndsWith(".jpg") => "image/jpeg",
+                var f when f.EndsWith(".jpeg") => "image/jpeg",
+                var f when f.EndsWith(".webp") => "image/webp",
+                _ => "application/octet-stream"
+            };
+
+            await storage.From(CertificateBucket).Upload(
+                selectedCertificatePath,
+                objectPath,
+                new Supabase.Storage.FileOptions
+                {
+                    Upsert = true,
+                    ContentType = contentType
+                });
+
+            return storage.From(CertificateBucket).GetPublicUrl(objectPath);
+        }
+
+        private async Task ShowPgError(Exception ex, string title)
+        {
+            if (ex is Supabase.Postgrest.Exceptions.PostgrestException pg)
+                await DisplayAlert("Error", $"{title}: {pg.Message}", "OK");
+            else
+                await DisplayAlert("Error", $"{title}: {ex.Message}", "OK");
+        }
+    }
+}
+
+
+using Microsoft.Maui.Authentication;
+using Microsoft.Maui.Controls;
+using road_rescue.Models;
+using Supabase;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Text.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Supabase.Postgrest;
+using System.Net.Http.Json;
+
+namespace road_rescue;
+
+public partial class logInPage : ContentPage
+{
+    // === Google OAuth (Android) ===
+    private const string GoogleAndroidClientId = "153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r.apps.googleusercontent.com";
+    private const string RedirectScheme = "com.googleusercontent.apps.153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r";
+    private string RedirectUri => $"{RedirectScheme}:/oauth2redirect";
+
+    public logInPage()
+    {
+        InitializeComponent();
+    }
+
+    private async void OnLoginClicked(object sender, EventArgs e)
+    {
+        string email = emailEntry.Text?.Trim();
+        string password = passwordEntry.Text?.Trim();
+
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+        {
+            await DisplayAlert("Error", "Please fill in all fields.", "OK");
+            return;
+        }
+
+        try
+        {
+            // Make sure Supabase client is initialized
+            await SupabaseService.InitializeAsync();
+
+            // Check user_app table
+            var userResponse = await SupabaseService.Client
+                .From<AppUser>()
+                .Where(u => u.Email == email)
+                .Get();
+
+            var user = userResponse.Models.FirstOrDefault();
+
+            if (user != null && user.Password == password)
+            {
+                await DisplayAlert("Success", $"Welcome {user.FullName}!", "OK");
+
+                // Redirect based on status
+                if (user.Role == "Mechanic")
+                {
+                    await Navigation.PushAsync(new RequestPage());
+                }
+                else // Driver or any other status
+                {
+                    await Navigation.PushAsync(new landingpage());
+                }
+                return;
+            }
+
+            await DisplayAlert("Login Failed", "Invalid email or password.", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Something went wrong: {ex.Message}", "OK");
+        }
+    }
+
+    private void signup_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new signUpPage());
+    }
+
+    private async void Signinwithgoogle_Clicked(object sender, EventArgs e)
+    {
+        try
+        {
+            string authUrl =
+                "https://accounts.google.com/o/oauth2/v2/auth" +
+                $"?client_id={Uri.EscapeDataString(GoogleAndroidClientId)}" +
+                $"&redirect_uri={Uri.EscapeDataString(RedirectUri)}" +
+                "&response_type=code" +
+                "&scope=openid%20email%20profile";
+
+            var result = await WebAuthenticator.Default.AuthenticateAsync(
+                new WebAuthenticatorOptions
+                {
+                    Url = new Uri(authUrl),
+                    CallbackUrl = new Uri(RedirectUri),
+                    PrefersEphemeralWebBrowserSession = true
+                });
+
+            if (result?.Properties is null || !result.Properties.TryGetValue("code", out var code))
+            {
+                await DisplayAlert("Cancelled", "Google sign-in was cancelled.", "OK");
+                return;
+            }
+
+            // Exchange code for tokens
+            var tokenResp = await new HttpClient().PostAsync(
+                "https://oauth2.googleapis.com/token",
+                new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    ["code"] = code,
+                    ["client_id"] = GoogleAndroidClientId,
+                    ["redirect_uri"] = RedirectUri,
+                    ["grant_type"] = "authorization_code"
+                }));
+
+            tokenResp.EnsureSuccessStatusCode();
+            var tokenJson = await tokenResp.Content.ReadFromJsonAsync<JsonElement>();
+            var accessToken = tokenJson.GetProperty("access_token").GetString();
+
+            // Fetch userinfo
+            var http = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Get, "https://openidconnect.googleapis.com/v1/userinfo");
+            req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            var profileResp = await http.SendAsync(req);
+            profileResp.EnsureSuccessStatusCode();
+            var profile = await profileResp.Content.ReadFromJsonAsync<JsonElement>();
+
+            string email = profile.TryGetProperty("email", out var em) ? em.GetString() ?? "" : "";
+            string googleSub = profile.TryGetProperty("sub", out var sb) ? sb.GetString() : null;
+
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(googleSub))
+            {
+                await DisplayAlert("Error", "Failed to get user information from Google.", "OK");
+                return;
+            }
+
+            // Check if user exists in database
+            await SupabaseService.InitializeAsync();
+
+            var userResponse = await SupabaseService.Client
+                .From<AppUser>()
+                .Where(u => u.GoogleSub == googleSub || u.Email == email)
+                .Get();
+
+            var user = userResponse.Models.FirstOrDefault();
+
+            if (user == null)
+            {
+                await DisplayAlert("Error", "No account found with this Google account. Please sign up first.", "OK");
+                return;
+            }
+
+            // Update user profile with latest Google info if needed
+            string fullName = profile.TryGetProperty("name", out var n) ? n.GetString() ?? "" : "";
+            string picture = profile.TryGetProperty("picture", out var pic) ? pic.GetString() : null;
+
+            bool needsUpdate = false;
+            if (user.FullName != fullName) { user.FullName = fullName; needsUpdate = true; }
+            if (user.PhotoUrl != picture) { user.PhotoUrl = picture; needsUpdate = true; }
+            if (user.GoogleSub != googleSub) { user.GoogleSub = googleSub; needsUpdate = true; }
+
+            if (needsUpdate)
+            {
+                user.UpdatedAt = DateTime.UtcNow;
+                await SupabaseService.Client
+                    .From<AppUser>()
+                    .Update(user, new QueryOptions { Returning = QueryOptions.ReturnType.Minimal });
+            }
+
+            await DisplayAlert("Success", $"Welcome {user.FullName}!", "OK");
+
+            // Redirect based on status
+            if (user.Role == "Mechanic")
+            {
+                await Navigation.PushAsync(new RequestPage());
+            }
+            else // Driver or any other status
+            {
+                await Navigation.PushAsync(new landingpage());
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Google sign-in failed: {ex.Message}", "OK");
+        }
+    }
+}
+
+using Android.App;
+using Android.Content;
+using Android.Content.PM;
+using Android.OS;
+using Microsoft.Maui;
+
+namespace road_rescue
+{
+    [Activity(
+        Theme = "@style/Maui.SplashTheme",
+        MainLauncher = true,
+        ConfigurationChanges = ConfigChanges.ScreenSize |
+                               ConfigChanges.Orientation |
+                               ConfigChanges.UiMode |
+                               ConfigChanges.ScreenLayout |
+                               ConfigChanges.SmallestScreenSize |
+                               ConfigChanges.Density,
+        LaunchMode = LaunchMode.SingleTask)] // important for deep links
+
+    // 1) Supabase email verification deep link:
+    //    roadrescue.staging://email-callback
+    [IntentFilter(
+        new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+        DataScheme = "roadrescue.staging",
+        DataHost = "email-callback")]
+
+    // 2) Google OAuth redirect for WebAuthenticator:
+    //    com.googleusercontent.apps.153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r:/oauth2redirect
+    [IntentFilter(
+        new[] { Intent.ActionView },
+        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+        DataScheme = "com.googleusercontent.apps.153424140230-0vf4eon1sgsob9842d1nkgt07q0np52r",
+        DataHost = "oauth2redirect")]
+    public class MainActivity : MauiAppCompatActivity
+    {
+        protected override void OnCreate(Bundle? savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+            HandleDeepLinkIntent(Intent); // if launched from a link
+        }
+
+        protected override void OnNewIntent(Intent? intent)
+        {
+            base.OnNewIntent(intent);
+            HandleDeepLinkIntent(intent); // if app was already running
+        }
+
+        private void HandleDeepLinkIntent(Intent? intent)
+        {
+            if (intent?.Data == null) return;
+
+            // e.g. roadrescue.staging://email-callback#access_token=...&type=signup
+            var uri = intent.Data;
+            App.Current?.SendOnAppLinkRequestReceived(new Uri(uri.ToString()));
+        }
+    }
+}
+
+
+using System;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Storage;
+using Supabase;
+
+namespace road_rescue
+{
+    public partial class App : Application
+    {
+        const string FirstLaunchKey = "IsFirstLaunch";
+
+        // Deep link parts we expect from Supabase verification
+        private const string DeepLinkScheme = "roadrescue.staging";
+        private const string DeepLinkHost = "email-callback";
+
+        // If a deep link arrives before Shell is ready, we store it and handle later
+        private Uri? _pendingDeepLink;
+
+        public App()
+        {
+            InitializeComponent();
+            InitializeSupabase();
+        }
+
+        protected override async void OnAppLinkRequestReceived(Uri uri)
+        {
+            // Example: roadrescue.staging://email-callback#access_token=...&type=signup
+            if (uri is null)
+            {
+                base.OnAppLinkRequestReceived(uri);
+                return;
+            }
+
+            if (uri.Scheme == DeepLinkScheme && uri.Host == DeepLinkHost)
+            {
+                // If Shell/Window not yet ready, queue it
+                if (Shell.Current is null || Current?.Windows?.Count == 0)
+                {
+                    _pendingDeepLink = uri;
+                    return;
+                }
+
+                await HandleVerificationDeepLinkAsync(uri);
+                return;
+            }
+
+            base.OnAppLinkRequestReceived(uri);
+        }
+
+        private async void InitializeSupabase()
+        {
+            await SupabaseService.InitializeAsync();
+        }
+
+        protected override Window CreateWindow(IActivationState? activationState)
+        {
+            var shell = new AppShell();
+
+            // route the first-launch screen if you want
+            bool isFirstLaunch = Preferences.Get(FirstLaunchKey, true);
+            if (isFirstLaunch)
+            {
+                Preferences.Set(FirstLaunchKey, false);
+                shell.Dispatcher.Dispatch(async () =>
+                {
+                    // assumes "mainpage" route exists in AppShell
+                    await shell.GoToAsync("mainpage");
+                });
+            }
+
+            // Process any pending deep link once Shell is ready
+            shell.Dispatcher.Dispatch(async () =>
+            {
+                if (_pendingDeepLink != null)
+                {
+                    var uriToHandle = _pendingDeepLink;
+                    _pendingDeepLink = null;
+                    await HandleVerificationDeepLinkAsync(uriToHandle);
+                }
+            });
+
+            return new Window(shell);
+        }
+
+        private async System.Threading.Tasks.Task HandleVerificationDeepLinkAsync(Uri uri)
+        {
+            try
+            {
+                // Optional: parse tokens from uri.Fragment if you want to restore a session.
+
+                // Tell the user and navigate to login
+                await Shell.Current.DisplayAlert(
+                    "Verified",
+                    "Na-verify na ang email mo. Maaari ka nang mag log-in.",
+                    "OK");
+
+                // If you registered a Shell route for the login page, use GoToAsync:
+                // await Shell.Current.GoToAsync("loginpage");
+
+                // Otherwise, push the page directly:
+                await Shell.Current.Navigation.PushAsync(new logInPage());
+            }
+            catch
+            {
+                // swallow any UI errors (e.g., if navigation stack not ready yet)
+            }
+        }
+    }
+}

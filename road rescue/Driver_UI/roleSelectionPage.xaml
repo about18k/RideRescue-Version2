@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.roleSelectionPage"
+             Title="Select Your Role"
+             Shell.TabBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundColor="#edf2fb"
+             >
+
+    <VerticalStackLayout 
+        Padding="20" 
+        Spacing="20"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+
+        <!-- Top Image (App Logo or Illustration) -->
+        <Image Source="roleimage.png" 
+               WidthRequest="350" 
+               HeightRequest="300" 
+               HorizontalOptions="Center"
+               Margin="0,0,0,20"/>
+
+        <!-- Driver Button -->
+        <Frame CornerRadius="10" >
+            <HorizontalStackLayout Padding="3" Spacing="8">
+                <Image Source="driver_icon.png" WidthRequest="35" HeightRequest="35"/>
+                <Label Text="I am a Driver" FontSize="18" TextColor="black" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="DriverButton_Clicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- Mechanic Button -->
+        <Frame CornerRadius="10">
+            <HorizontalStackLayout Padding="3" Spacing="8">
+                <Image Source="mechanic_icon.png" WidthRequest="35" HeightRequest="35"/>
+                <Label Text="I am a Mechanic" FontSize="18" TextColor="Black" VerticalOptions="Center"/>
+            </HorizontalStackLayout>
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="MechanicButton_Clicked"/>
+            </Frame.GestureRecognizers>
+        </Frame>
+
+        <!-- "Have an account?" Button -->
+        <Button Text="Have an account?"
+                x:Name="logIn"
+                FontSize="16"
+                BackgroundColor="Transparent"
+                TextColor="Black"
+                HeightRequest="40"
+                Clicked="logIn_Clicked"/>
+
+    </VerticalStackLayout>
+</ContentPage>

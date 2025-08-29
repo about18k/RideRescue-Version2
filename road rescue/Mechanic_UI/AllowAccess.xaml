@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.Mechanic_UI.AllowAccess"
+             BackgroundColor="White"
+             Shell.TabBarIsVisible="False"
+             Title="Allow Location Access"
+             Shell.FlyoutBehavior="Disabled"
+
+             >
+
+    <Grid Padding="30" RowDefinitions="Auto,*,Auto">
+
+        <!-- Back Button -->
+        <ImageButton Source="back_arrow.png"
+                     HeightRequest="30"
+                     WidthRequest="30"
+                     BackgroundColor="Transparent"
+                     HorizontalOptions="Start"
+                     Clicked="OnBackButtonClicked" />
+
+        <!-- Main Content -->
+        <VerticalStackLayout Grid.Row="1" Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
+
+            <Image Source="world_location.png"
+                   HeightRequest="120"
+                   WidthRequest="120"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Allow location access"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#000" />
+
+            <Label Text="We use this to show nearby stores. You can edit access in your phone's settings."
+                   FontSize="16"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#666" />
+
+            <Label Text="By allowing access, you consent to share your personal info with Google Maps as stated in the Privacy Policy"
+                   FontSize="12"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#999"
+                   Margin="20,40,20,0" />
+
+        </VerticalStackLayout>
+
+        <!-- Allow Access Button -->
+        <Button Text="Allow access"
+                BackgroundColor="Black"
+                TextColor="White"
+                CornerRadius="25"
+                HeightRequest="50"
+                HorizontalOptions="FillAndExpand"
+                Grid.Row="2"
+                Clicked="OnAllowAccessClicked" />
+    </Grid>
+
+</ContentPage>

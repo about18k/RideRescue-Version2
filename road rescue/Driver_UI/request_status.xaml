@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="road_rescue.request_status"
+    Title="Request Status"
+    BackgroundColor="#f4f6f8">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Title with Hamburger Icon -->
+            <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,10">
+                <Label Text="Request Status"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       TextColor="#21499F"
+                       VerticalOptions="Center" />
+
+                <Label Text="☰"
+                       FontSize="30"
+                       TextColor="Black"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center"
+                       Margin="0,0,0,4">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+            <!-- ========== CARD 1 - ACCEPTED ========== -->
+            <Frame BackgroundColor="White" CornerRadius="15" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Name: Juan Dela Cruz" />
+                    <Label Text="Vehicle Type: Sedan" />
+                    <Label Text="Additional Info: Flat tire" />
+                    <Label Text="Landmark/Remarks: Near City Mall" />
+                    <Label Text="Location: (14.5995, 120.9842)" />
+                    <Label Text="Image Uploaded: [Tap to View]" TextColor="Blue" />
+                    <Label Text="Date and Time: May 29, 2025 - 10:30 AM" />
+                    <Label Text="Status: ACCEPTED" TextColor="Green" FontAttributes="Bold" />
+
+                    <Button Text="View Mechanic Profile"
+                            BackgroundColor="#21499F"
+                            TextColor="White"
+                            CornerRadius="10"
+                            Clicked="OnViewMechanicClicked" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- ========== CARD 2 - WAITING ========== -->
+            <Frame BackgroundColor="White" CornerRadius="15" Padding="15" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Name: Maria Santos" />
+                    <Label Text="Vehicle Type: SUV" />
+                    <Label Text="Additional Info: Engine won’t start" />
+                    <Label Text="Landmark/Remarks: Beside Central Bank" />
+                    <Label Text="Location: (14.6100, 120.9820)" />
+                    <Label Text="Image Uploaded: [Tap to View]" TextColor="Blue" />
+                    <Label Text="Date and Time: May 29, 2025 - 11:45 AM" />
+                    <Label Text="Status: WAITING" TextColor="Orange" FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

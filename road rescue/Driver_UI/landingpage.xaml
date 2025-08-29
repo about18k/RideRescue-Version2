@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.landingpage"
+             Title="landingpage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#edf2fb"
+             >
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Profile Icon Row with Logo Before Text -->
+            <Grid ColumnDefinitions="Auto,*,Auto" VerticalOptions="Start" Padding="0">
+                <!-- Logo image before the text -->
+                <Image Source="logo2.png"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       VerticalOptions="Center"
+                       Margin="0,0,8,0"/>
+
+                <!-- Road Rescue Text -->
+                <Label Text="Ride Rescue"
+                       FontAttributes="Bold"
+                       FontSize="30"
+                       VerticalOptions="Center"
+                       Grid.Column="1"/>
+
+                <!-- Profile Button -->
+
+
+
+                <Label
+                         Text="☰"
+                         FontSize="30"
+                         HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         Margin="0,0,0,4"
+                         Grid.Column="2">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                      </Label.GestureRecognizers>
+
+                    </Label>
+
+            </Grid>
+
+            <!-- Help Services Title -->
+            <Label Text="Help Services:"
+                   FontSize="20"
+                   TextColor="Black"
+                   Margin="0, 20, 0, 23"/>
+
+            <!-- Help Services Frame -->
+            <Frame 
+                BorderColor="#3070f6" 
+                CornerRadius="20" 
+                Padding="20" 
+                HasShadow="True"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="300">
+
+                <Grid 
+                    ColumnDefinitions="*,*" 
+                    RowDefinitions="Auto,Auto" 
+                    ColumnSpacing="25" 
+                    RowSpacing="25">
+
+                    <!-- Row 1 -->
+                    <StackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnVulcanizingShopsTapped" />
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="vulcanizing.png" HeightRequest="50"/>
+                        <Label Text="Vulcanizing Shops" FontSize="14" HorizontalTextAlignment="Center"  FontAttributes="Bold" Margin="0,5,0,0" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnRepairShopTapped" />
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="repair_shop.png" HeightRequest="50"/>
+                        <Label Text="Repair Shop" FontSize="14" HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="0,5,0,0" />
+                    </StackLayout>
+                    <!-- Row 2 -->
+                    <StackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGasStationTapped" />
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="gas_station.png" HeightRequest="50"/>
+                        <Label Text="Gas Station" FontSize="14" HorizontalTextAlignment="Center"  FontAttributes="Bold" Margin="0,5,0,0" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnOtherHelpServicesTapped" />
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="others.png" HeightRequest="50"/>
+                        <Label Text="Other Help Services" FontSize="14" HorizontalTextAlignment="Center"  FontAttributes="Bold" Margin="0,5,0,0" />
+                    </StackLayout>
+
+                </Grid>
+            </Frame>
+
+            <!-- SOS Button -->
+            <Button Text="SOS"
+                    x:Name="sosbutton"
+                    BackgroundColor="IndianRed"
+                    TextColor="White"
+                    FontSize="24"
+                    CornerRadius="25"
+                    HeightRequest="60"
+                    HorizontalOptions="Fill"
+                    Margin="0,30,0,10"
+                    Clicked="sosbutton_Clicked"
+                    FontAttributes="Bold"/>
+
+            <!-- Help Services Title <Button Text="Reset Onboarding"
+        BackgroundColor="LightGray"
+        TextColor="Black"
+        FontSize="16"
+        CornerRadius="20"
+        HeightRequest="50"
+        HorizontalOptions="Fill"
+        Clicked="ResetOnboarding_Clicked"/>-->
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

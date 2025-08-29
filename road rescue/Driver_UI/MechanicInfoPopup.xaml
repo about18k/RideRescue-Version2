@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="road_rescue.MechanicInfoPopup"
+    >
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Mechanic Profile"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#21499F"
+               HorizontalOptions="Center" />
+
+        <Image Source="derek.jpg"
+               WidthRequest="100"
+               HeightRequest="100"
+               BackgroundColor="#ccc"
+               Aspect="AspectFill"
+               HorizontalOptions="Center" />
+
+        <Label Text="Name: Mike Mechanic" />
+        <Label Text="Address: 456 Repair Ave, City" />
+        <Label Text="Services: Tire Repair, Jumpstart, Battery Replacement" />
+        <Label Text="Location: (14.6001, 120.9845)"
+               TextColor="#21499F">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLocationTapped" />
+            </Label.GestureRecognizers>
+        </Label>
+
+
+        <!-- New button added here -->
+        <Button Text="Messages"
+                BackgroundColor="#34A853"
+                TextColor="White"
+                Clicked="OnNavigateToMessagesClicked" />
+
+        <Button Text="Close"
+                BackgroundColor="#21499F"
+                TextColor="White"
+                Clicked="OnCloseClicked" />
+    </VerticalStackLayout>
+</toolkit:Popup>

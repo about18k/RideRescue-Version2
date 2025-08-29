@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.TrackingPage"
+             Shell.TabBarIsVisible="False"
+             Title="TrackingPage"
+             Shell.FlyoutBehavior="Disabled"
+             >
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#edf2fb" Offset="0.0" />
+            <GradientStop Color="#dbe7f5" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <ScrollView>
+        <Grid Padding="20" RowSpacing="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Grid Grid.Row="0" ColumnSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Source="back_icon.png"
+                       WidthRequest="24"
+                       HeightRequest="24"
+                       VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnBackTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Label Text="Tracking"
+                       Grid.Column="1"
+                       TextColor="#2c3e50"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"/>
+            </Grid>
+
+            <!-- Map Placeholder -->
+            <Frame Grid.Row="1"
+                   BackgroundColor="#b4c5e4"
+                   CornerRadius="15"
+                   Padding="0"
+                   HasShadow="True">
+                <Grid HeightRequest="200"
+                      VerticalOptions="Center"
+                      HorizontalOptions="FillAndExpand">
+                    <Label Text="Map Placeholder"
+                           TextColor="White"
+                           FontSize="16"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Grid>
+            </Frame>
+
+            <!-- Shipment Info Frame -->
+            <Frame Grid.Row="2"
+                   BackgroundColor="White"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   Padding="15"
+                   Margin="0,10">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Date: Friday, 30 May 2025" TextColor="#2c3e50" FontSize="13"/>
+                    <Label Text="Arrival Time: 10 minutes" TextColor="#2c3e50" FontSize="13"/>
+                    <Label Text="From: Linut-od, Argao, Cebu" TextColor="#2c3e50" FontSize="13"/>
+                    <Label Text="Current Location: Canbantug, Argao, Cebu" TextColor="#2c3e50" FontSize="13"/>
+                    <Label Text="Reason to rescue: Engine Breakdown" TextColor="#2c3e50" FontSize="13"/>
+                    <Label Text="Vehicle: Kawasaki Ninja Zx25r" TextColor="#2c3e50" FontSize="13"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Customer Service Card -->
+            <Frame Grid.Row="3"
+                   BackgroundColor="White"
+                   CornerRadius="15"
+                   HasShadow="True"
+                   Padding="10">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                    <Frame Padding="0"
+                           CornerRadius="999"
+                           IsClippedToBounds="True"
+                           HeightRequest="45"
+                           WidthRequest="45"
+                           HasShadow="False"
+                           VerticalOptions="Center">
+                        <Image Source="stayvepic.jpg"
+                               Aspect="AspectFill"
+                               HeightRequest="45"
+                               WidthRequest="45"/>
+                    </Frame>
+
+                    <StackLayout Grid.Column="1" VerticalOptions="Center">
+                        <Label Text="Stayve Alreach T. Fedillaga"
+                               TextColor="#2c3e50"
+                               FontSize="14"
+                               FontAttributes="Bold"/>
+                        <Label Text="Vehicle Owner"
+                               TextColor="Gray"
+                               FontSize="12"/>
+                    </StackLayout>
+
+                    <Image Source="call_icon.png"
+                           Grid.Column="2"
+                           WidthRequest="30"
+                           HeightRequest="30"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"/>
+                </Grid>
+            </Frame>
+
+            <!-- Status Steps -->
+            <Grid Grid.Row="4"
+                  ColumnDefinitions="Auto,*,Auto,*,Auto"
+                  VerticalOptions="Center"
+                  Margin="0,10">
+
+                <!-- Step 1 -->
+                <StackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse WidthRequest="14" HeightRequest="14" Fill="#007aff"/>
+                    <Label Text="Accepted" TextColor="#2c3e50" FontSize="10" HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Line 1 -->
+                <BoxView Grid.Column="1"
+                         HeightRequest="2"
+                         BackgroundColor="#007aff"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand" />
+
+                <!-- Step 2 -->
+                <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse WidthRequest="14" HeightRequest="14" Fill="#007aff"/>
+                    <Label Text="On going" TextColor="#2c3e50" FontSize="10" HorizontalOptions="Center"/>
+                </StackLayout>
+
+                <!-- Line 2 -->
+                <BoxView Grid.Column="3"
+                         HeightRequest="2"
+                         BackgroundColor="#bdc3c7"
+                         VerticalOptions="Center"
+                         HorizontalOptions="FillAndExpand" />
+
+                <!-- Step 3 -->
+                <StackLayout Grid.Column="4" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse WidthRequest="14" HeightRequest="14" Fill="#bdc3c7"/>
+                    <Label Text="Arrived" TextColor="#2c3e50" FontSize="10" HorizontalOptions="Center"/>
+                </StackLayout>
+            </Grid>
+
+            <!-- Delivery Info Card -->
+            <Frame Grid.Row="5"
+                   BackgroundColor="White"
+                   CornerRadius="25"
+                   HasShadow="True"
+                   Padding="20">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Rescuing Stayve Alreach"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           TextColor="#2c3e50"/>
+                    <Label Text="At Canbantug, Argao, Cebu"
+                           FontSize="13"
+                           TextColor="#2c3e50"/>
+                    <Label Text="1:03 PM"
+                           FontSize="13"
+                           TextColor="#2c3e50"/>
+
+                    <Button Text="Live Tracking"
+                            BackgroundColor="#007aff"
+                            TextColor="White"
+                            CornerRadius="20"
+                            FontAttributes="Bold"
+                            Padding="10,5"
+                            Clicked="OnLiveTrackingClicked"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

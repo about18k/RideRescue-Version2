@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="road_rescue.MapPage"
+             Title="Map Page"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="#edf2fb">
+
+    <Grid RowDefinitions="Auto, *">
+
+        <!-- Header aligned top-left -->
+        <VerticalStackLayout Grid.Row="0"
+                             Padding="0,20,20,10"
+                             Spacing="10"
+                             HorizontalOptions="Start"
+                             VerticalOptions="Start">
+
+            <HorizontalStackLayout Spacing="10"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Start">
+
+                <!-- Back Button -->
+                <Button 
+                    ImageSource="arrowleftsmall.png"
+                    BackgroundColor="Transparent"
+                    Clicked="OnBackClicked"
+                    WidthRequest="36"
+                    HeightRequest="36"
+                    CornerRadius="18"
+                    Padding="8"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"/>
+
+                <!-- Title -->
+                
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Scrollable Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Spacing="25" Padding="20">
+
+                <!-- Shop Name -->
+
+                <!-- Modern Border -->
+                <Border Stroke="#cccccc"
+                        StrokeThickness="1"
+                        BackgroundColor="Transparent"
+                        HeightRequest="900"
+                        WidthRequest="400"
+                        Shadow="10">
+                    <Image Source="imthemap.png"
+                           Aspect="AspectFill"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill" />
+                </Border>
+
+                <!-- Get Help Button -->
+                
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
