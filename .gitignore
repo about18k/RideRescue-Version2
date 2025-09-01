@@ -1,0 +1,16 @@
+# Visual Studio / .NET / MAUI / Android
+.vs/
+**/bin/
+**/obj/
+*.user
+*.suo
+*.cache
+*.log
+
+# Mobile build outputs
+*.apk
+*.aab
+
+# OS cruft
+.DS_Store
+Thumbs.db
