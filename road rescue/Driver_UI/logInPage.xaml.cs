@@ -177,6 +177,8 @@ namespace road_rescue
 
         // Persist tokens & allow “non-expiring” sign-in via refresh token rotation
         // Access tokens are short-lived; refresh tokens do not expire (they rotate). We save them and Supabase refreshes automatically.
+        // Persist tokens & allow “non-expiring” sign-in via refresh token rotation
+        // Access tokens are short-lived; refresh tokens do not expire (they rotate). We save them and Supabase refreshes automatically.
         private static void PersistTokensOnAuthChanges()
         {
             SupabaseService.Client!.Auth.AddStateChangedListener(async (_, state) =>
